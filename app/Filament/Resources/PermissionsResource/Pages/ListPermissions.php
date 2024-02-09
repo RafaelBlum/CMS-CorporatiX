@@ -2,13 +2,13 @@
 
 namespace App\Filament\Resources\PermissionsResource\Pages;
 
-use App\Filament\Resources\PermissionsResource;
+use App\Filament\Resources\PermissionResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
 class ListPermissions extends ListRecords
 {
-    protected static string $resource = PermissionsResource::class;
+    protected static string $resource = PermissionResource::class;
 
     protected function getHeaderActions(): array
     {

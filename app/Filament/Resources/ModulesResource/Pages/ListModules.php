@@ -2,13 +2,13 @@
 
 namespace App\Filament\Resources\ModulesResource\Pages;
 
-use App\Filament\Resources\ModulesResource;
+use App\Filament\Resources\ModuleResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
 class ListModules extends ListRecords
 {
-    protected static string $resource = ModulesResource::class;
+    protected static string $resource = ModuleResource::class;
 
     protected function getHeaderActions(): array
     {
