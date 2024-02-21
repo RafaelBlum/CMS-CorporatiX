@@ -4,25 +4,21 @@ namespace App\Filament\Pages;
 
 use App\Forms\Components\CustomPlasceHolder;
 use App\Models\Setting;
-use Filament\Forms\Components\Fieldset;
+use Exception;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
-use Filament\Forms\Components\MarkdownEditor;
-use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
-use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
-use function PHPUnit\TextUI\Configuration\php;
 
 
 class Settings extends Page
 {
+    protected static ?string $model = Setting::class;
+
     /**
      * Passo para customização de paginas:
      * Creating a page [https://filamentphp.com/docs/3.x/panels/pages]
@@ -38,15 +34,16 @@ class Settings extends Page
      *              - app/forms/Components
      *              - resources/views/forms/components
      *
-    */
+     */
     protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
+
     protected static ?string $activeNavigationIcon = 'heroicon-o-wrench-screwdriver';
 
     protected static ?string $navigationLabel = "Configurações";
 
     protected static string $view = 'filament.pages.settings';
     /**
-     * @param Setting $settings;
+     * @param Setting $settings ;
      */
     public Setting $settings;
     public ?array $data = [];
@@ -76,12 +73,12 @@ class Settings extends Page
         return $form
             ->schema([
                 CustomPlasceHolder::make('title')
-                ->label('Informações gerais')
-                ->content('Personalização das informações do site institucional')->columnSpan(3),
+                    ->label('Informações gerais')
+                    ->content('Personalização das informações do site institucional')->columnSpan(3),
 
                 /**
                  * ASIDE COMPONENTS
-                */
+                 */
                 Group::make()->schema([
 
                     // ** Avatar user
@@ -94,7 +91,7 @@ class Settings extends Page
                             ->disableLabel(true)
                             ->disk('public')
                             ->directory('setting_images')
-                            ,
+                        ,
                     ]),
 
                     Section::make()->schema([
@@ -149,63 +146,59 @@ class Settings extends Page
                 ])->columnSpan(1)->columns(1),
 
 
-
                 /**
                  * CONTENTS COMPONENTS
                  */
                 Group::make()->schema([
 
-                        // ** Data user
-                        Section::make()->schema([
-                                TextInput::make('header_name')
-                                    ->label('Nome site principal'),
-                                TextInput::make('header_title')
-                                    ->label('Titulo do banner principal'),
-                                TextInput::make('header_description')
-                                    ->label('Descrição banner resumida'),
-                                TextInput::make('section_title')
-                                    ->label('Titulo da sessão'),
-                                TextInput::make('section_subtitle')
-                                    ->label('SubTitulo sessão'),
-                            TextInput::make('section_description')
-                                    ->label('Descrição de sessão resumida'),
-                            TextInput::make('footer_phone')
-                                    ->label('Telefone')->mask('(99) 99999-9999'),
-                            TextInput::make('footer_email')
-                                    ->label('E-mail institucional principal'),
+                    // ** Data user
+                    Section::make()->schema([
+                        TextInput::make('header_name')
+                            ->label('Nome site principal'),
+                        TextInput::make('header_title')
+                            ->label('Titulo do banner principal'),
+                        TextInput::make('header_description')
+                            ->label('Descrição banner resumida'),
+                        TextInput::make('section_title')
+                            ->label('Titulo da sessão'),
+                        TextInput::make('section_subtitle')
+                            ->label('SubTitulo sessão'),
+                        TextInput::make('section_description')
+                            ->label('Descrição de sessão resumida'),
+                        TextInput::make('footer_phone')
+                            ->label('Telefone')->mask('(99) 99999-9999'),
+                        TextInput::make('footer_email')
+                            ->label('E-mail institucional principal'),
 
 
+                        RichEditor::make('section_about')
+                            ->label('section_about')->columnSpan(2),
 
-                                RichEditor::make('section_about')
-                                    ->label('section_about')->columnSpan(2),
-
-                            /**
-                             * last_acess - Important
-                            */
-
-                            ])->columnSpan(2)->columns(2),
-
-
+                        /**
+                         * last_acess - Important
+                         */
 
                     ])->columnSpan(2)->columns(2),
 
 
+                ])->columnSpan(2)->columns(2),
+
+
             ])->statePath('data')->columns([
-                    'default' => 2,
-                    'sm' => 1,
-                    'md' => 2,
-                    'lg' => 2,
-                    'xl' => 2,
-                    '2xl' => 2
+                'default' => 2,
+                'sm' => 1,
+                'md' => 2,
+                'lg' => 2,
+                'xl' => 2,
+                '2xl' => 2
             ]);
     }
-
 
 
     public function submit(): void
     {
         $data = $this->form->getState();
-        try{
+        try {
 
             $this->settings->update($data);
 
@@ -214,7 +207,7 @@ class Settings extends Page
                 ->body('Todos processos solicitados foram feitos...')
                 ->success()
                 ->send();
-        }catch (\Exception $e){
+        } catch (Exception $e) {
             dd($e->getMessage());
             Notification::make()
                 ->title('Erro ao tentar enviar')

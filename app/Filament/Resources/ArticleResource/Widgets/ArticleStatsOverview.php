@@ -13,6 +13,9 @@ class ArticleStatsOverview extends BaseWidget
     protected static ?string $pollingInterval = '10s';
     protected static bool $isLazy = false;
 
+    /**
+     * https://filamentphp.com/docs/3.x/panels/resources/widgets#creating-a-resource-widget
+    */
     protected function getStats(): array
     {
         $publishe = Article::where('status', 'published')->withCount('author')->count();

@@ -133,9 +133,11 @@ class ArticleResource extends Resource
                         ->icon('heroicon-m-inbox')
                         ->schema([
                             TextInput::make('subTitle')->label('Sub Titulo')
+                                ->maxLength(255)
                                 ->required(),
 
                             Textarea::make('summary')->label('Resumo')
+                                ->maxLength(255)
                                 ->required(),
 
                             RichEditor::make('content')
@@ -177,18 +179,33 @@ class ArticleResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('title')->limit(20)->sortable()->searchable(),
                 Tables\Columns\ImageColumn::make('featured_image_url')
-                    ->circular()
+                    ->square()
                     ->defaultImageUrl(url('storage/app/public/image_posts'))
-                    ->label('Imagem'),
-                TextColumn::make('category.name')->label('Categoria'),
-                TextColumn::make('author.name'),
-                TextColumn::make('tags.name')->badge(),
-                BooleanColumn::make('published_at'),
+                    ->size(60)
+                    ->label(''),
+
+                TextColumn::make('title')
+                    ->label('Titulo')
+                    ->limit(20)
+                    ->searchable(),
+
+                TextColumn::make('category.name')
+                    ->label('Categoria'),
+
+                TextColumn::make('author.name')
+                    ->label('Autor'),
+
+                TextColumn::make('tags.name')
+                    ->label('Tags')
+                    ->badge(),
+
+                BooleanColumn::make('published_at')
+                ->label('Status publicação'),
 
 
             ])
+
             ->filters([
                 SelectFilter::make('status')->options([
                     'draft'             => 'Rascunho',
@@ -209,7 +226,6 @@ class ArticleResource extends Resource
                     ->multiple(),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -288,6 +304,11 @@ class ArticleResource extends Resource
             'view' => Pages\ViewArticle::route('/{record}'),
             'edit' => Pages\EditArticle::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
     }
 }
 

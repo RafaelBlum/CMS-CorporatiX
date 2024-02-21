@@ -110,31 +110,39 @@ sendo atendidos.
 
 
 ### :label: Os `requisitos funcionais (RF)`
-- [RF001] :white_check_mark:    O Sistema deverá ter um site institucional que será administravel seus dados por um admin.
+- [RF001] :white_check_mark:    O Sistema deverá ter um site institucional que será administravel.
+- [RF007]                       O Sistema deve ter `configurações [unico e não deletavel]` para administração de dados da página institucional e admin.
 - [RF002] :white_check_mark:    O Sistema terá uma area restrita para os colaboradores e admins (intranet/App).
-- [RF003] :white_check_mark:    O Sistema terá uma dasboard para somente administradores com diversas funcionalidades para todo sistema.
-- [RF004]                       O Sistema deve autenticar o `usuários` e `administradores` atravez de `atributo que os definem`.
-- [RF001]`:Em desenvolvimento:` O `usuários` poderá acessar somente a area de intranet/App e `administradores` teram acesso a area App e dashboard.
-- [RF001]`:Em desenvolvimento:` O sistema deve ter cadastro de novos usuários por administradores, bem como cadastro de seu `perfil de acesso` e seus dados. Seu `e-mail não poderá se repetir`.
-- [RF017]                       O Sistema deve permitir a `administração` da `listagem do e-mails registrado`.
-- [RF007] :white_check_mark:    O usuário só será liberado quando um administrador do sistema aprovar ou não seu acesso. E esse acesso será `notificado via e-mail` para o usuário.
-- [RF003] :white_check_mark:    O sistema terá controle de acesso a funcionalidades a partir de suas (ACL) permissões de cada perfil de usuário e administradores do sistema.
-- [RF004] :white_check_mark:    O Sistema deve ter uma dashboard administrativa com menu das funcionalidades.
-- [RF005]                       O Sistema deve ter estatiscas do trávego de navegação dos usuários.
-- [RF006]                       O Sistema deve ter administração de perguntas frequentes (`analise`).
-- [RF007]`:Em desenvolvimento:` O Sistema deve ter `configuração de dados` tanto do site institucional quanto do app e area administrativa.
-- [RF013] :white_check_mark:    O Sistema deve ter somente um registro de configuração e não deletavel.
+- [RF003] :white_check_mark:    O Sistema terá uma dasboard para somente administradores com menu das funcionalidades.
+- [RF003] :white_check_mark:    O sistema terá `controle de acesso` a funcionalidades a partir de suas (ACL) permissões, seja usuário ou admin.
+- [RF004]                       O Sistema deve autenticar o `usuários` e `administradores` atravez de `atributo que os definem` [email, passsword, status].
+- [RF005]                       O `usuários` poderá acessar somente a area de intranet/App e `administradores` teram acesso a area App e dashboard.
+- [RF006]                       O sistema deve ter cadastro de novos usuários somente por administradores, com seu `perfil de acesso` e um `e-mail único`.
+- [RF007] :white_check_mark:    O usuário deve ser notificado da sua aprovação via `notificado de e-mail`.
+- [RF005]                       O Sistema deve ter estatiscas do trávego de navegação na dashboard.
+                                    - Quem pode administrar são Administradores com permissão `dasboard`
+                                    - Dados que serão administraveis na área APP [nome site, favicon, ].
+                                    - 
+
+
+
+
+
+
+
+- [RF006]                       O Sistema deve ter pergntas frequentes, que serão administradas.
 - [RF007] :white_check_mark:    O Sistema deve ter administração de `usuários CRUD`.
 - [RF008] :white_check_mark:    O Sistema deve ter administração de `categorias  CRUD` e relações.
 - [RF009] :white_check_mark:    O Sistema deve ter administração dos `artigos  CRUD` e relações.
 - [RF009] :white_check_mark:    O Sistema deve ter administração dos `tags  CRUD` e relações.
+
 - [RF010] :white_check_mark:    O Sistema deve permitir a pesquisa de usuários, categorias, tags e artigos.
 - [RF011] :white_check_mark:    O Sistema deve ter paginação nas listagens administrativa.
 - [RF011]                       O Sistema deve ter paginação nas listagens app.
 
-- [RF018]                       O Sistema deve permitir mudar o status de e-mail registrado.
+- [RF018]                       O Sistema deve permitir mudar o status de acesso de um usuário.
 - [RF019]                       O Sistema deve permitir contato dos usuário via WhatsApp.
-- [RF020]                       O sistema deverá ter integração do `login` com o servidor de autenticação baseado em `OAuth do Google` e/ou `Facebook` somente se o usuário já tiver cadastro liberado por um admin.
+- [RF020]                       O sistema deverá ter integração do `login` com serviço baseado em `OAuth do Google` e/ou `Facebook`.
 - [RF021]                       O sistema terá um menu de opções que dê `acesso a todas as funcionalidades` que o sistema provê dependendo do seu `perfil de acesso`.
 
 - [RF023]                       O usuário poderá atualizar seu `endereço`, apos liberação de seu perfil ao sistema, podendo ser vazio.
@@ -264,7 +272,14 @@ O diagrama de classes do projeto, foi realizado no software  [`StarUML`](https:/
 - :label: :heavy_check_mark: Configurações de seeders e factories.
 - :label: :heavy_check_mark: Configurações do .env, app/config.
 - :label: :heavy_check_mark: Criação das Resources do Filament das migrates.
-- :label: :boom: Configurações da ArticleResource de form, table, infolist.
+- :label: :boom: Configurações da ArticleResource de form, table.
+        - Criação da página personalizada infolist [*1].
+        - add metodo para adicionar o slug dinamicamente pelo title.
+        - Criação de Custom Widgets [*2].
+        - 
+        - 
+        - 
+        
 - :label: :boom: Ajustes da section blog com component article\Grid.
 - :label: :boom: Criado as relações de Role, Permission e module.
 - :label: :boom: 
@@ -273,7 +288,13 @@ O diagrama de classes do projeto, foi realizado no software  [`StarUML`](https:/
 - :label: 
 - :label: [RF007]: Criando class Observer de User para observar os eventos de criação, para posterior envio de e-mail para usuários com seu `Email e senha` de acesso.
                     - https://laravel.com/docs/10.x/eloquent#observers
-- ctrl+alt+shift+L
+#### Referências
+- [*1] https://www.youtube.com/watch?v=G0IhDFyj2vU&t=4239s&ab_channel=FilamentBrasil
+- [*2] https://filamentphp.com/docs/3.x/panels/resources/widgets#creating-a-resource-widget
+- [*2] https://www.youtube.com/watch?app=desktop&v=_VnZAHbK4w4&ab_channel=CodeWithTony
+- [*]
+- [*]
+- [*]
 
 ##### Examples links
 - Customização da pagina de registrar user [Filament authenticate](https://filamentphp.com/docs/3.x/panels/users#customizing-the-authentication-features)

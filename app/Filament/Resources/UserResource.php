@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\PanelTypeEnum;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
@@ -10,22 +11,17 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
-use Filament\Forms\Get;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
+use stdClass;
 
 class UserResource extends Resource
 {
@@ -41,7 +37,7 @@ class UserResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-user-circle';
 
     /**
-     *
+     * Filtros em formato de guias: app\Traits\HasTablePublishedTabs
      *
      *
      */
@@ -77,7 +73,6 @@ class UserResource extends Resource
                     ]),
 
 
-
                 Forms\Components\Toggle::make('status')
                     ->onColor('success')
                     ->offColor('danger'),
@@ -88,13 +83,12 @@ class UserResource extends Resource
                     }),
 
 
-
                 Forms\Components\Textarea::make('bio')
                     ->columnSpanFull(),
 
                 Forms\Components\Select::make('marital_status')
                     ->label('Estado civil')
-                    ->options(File::json(public_path('data/marital-status.json')))
+                    ->options(PanelTypeEnum::class)
                     ->native(false)
                     ->required(),
 
@@ -115,14 +109,14 @@ class UserResource extends Resource
      *
      *
      *
-    */
+     */
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
                 TextColumn::make('No')->state(
-                    static function (HasTable $livewire, \stdClass $rowLoop): string {
-                        return (string) (
+                    static function (HasTable $livewire, stdClass $rowLoop): string {
+                        return (string)(
                             $rowLoop->iteration +
                             ($livewire->getTableRecordsPerPage() * (
                                     $livewire->getTablePage() - 1
@@ -179,7 +173,9 @@ class UserResource extends Resource
         ])->columns(3);
     }
 
-
+    /**
+     *
+     */
     public function getTabs(): array
     {
         return [
@@ -206,5 +202,17 @@ class UserResource extends Resource
             'view' => UserResource\Pages\ViewUser::route('/{record}'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::where('status', '=', true)->count();
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return static::getModel()::where('status', '=', true)->count() < 10
+            ? 'success'
+            : 'warning';
     }
 }
