@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Filament\Forms\Components\Placeholder;
+use Filament\Models\Contracts\HasAvatar;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,7 +12,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use function Filament\Tables\Filters\boolean;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasAvatar
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -49,6 +50,11 @@ class User extends Authenticatable
     public function hasPermission($permission)
     {
         return $this->role->permissions()->where('slug', $permission)->first() ? true : false;
+    }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return asset('storage/' . $this->avatar);
     }
 
 }
