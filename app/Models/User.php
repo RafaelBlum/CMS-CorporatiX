@@ -52,6 +52,9 @@ class User extends Authenticatable implements HasAvatar
         return $this->role->permissions()->where('slug', $permission)->first() ? true : false;
     }
 
+    /**
+     * Method filament get avatar user into navbar page
+    */
     public function getFilamentAvatarUrl(): ?string
     {
         return asset('storage/' . $this->avatar);

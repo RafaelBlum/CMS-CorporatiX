@@ -124,6 +124,11 @@ class UserResource extends Resource
                         );
                     }
                 ),
+                Tables\Columns\ImageColumn::make('avatar')
+                    ->circular()
+                    ->defaultImageUrl(url('storage/app/public/thumbnails'))
+                    ->label('Imagem'),
+
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
 
@@ -138,10 +143,7 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('phone')
                     ->searchable(),
 
-                Tables\Columns\ImageColumn::make('avatar')
-                    ->circular()
-                    ->defaultImageUrl(url('storage/app/public/thumbnails'))
-                    ->label('Imagem'),
+
             ])
             ->filters([
                 //

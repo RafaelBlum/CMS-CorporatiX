@@ -110,10 +110,10 @@ sendo atendidos.
 
 
 ### :label: Os `requisitos funcionais (RF)`
-- [RF001] :white_check_mark:    O Sistema deverá ter um site institucional que será administravel.
+- [RF001] :white_check_mark:    O Sistema deverá ter um `landing page institucional` que será administravel.
 - [RF007]                       O Sistema deve ter `configurações [unico e não deletavel]` para administração de dados da página institucional e admin.
-- [RF002] :white_check_mark:    O Sistema terá uma area restrita para os colaboradores e admins (intranet/App).
-- [RF003] :white_check_mark:    O Sistema terá uma dasboard para somente administradores com menu das funcionalidades.
+- [RF002] :white_check_mark:    O Sistema terá uma area restrita para os colaboradores e admins (`intranet/App`).
+- [RF003] :white_check_mark:    O Sistema terá uma `dashboard` para somente administradores com `menu das funcionalidades`.
 - [RF003] :white_check_mark:    O sistema terá `controle de acesso` a funcionalidades a partir de suas (ACL) permissões, seja usuário ou admin.
 - [RF004]                       O Sistema deve autenticar o `usuários` e `administradores` atravez de `atributo que os definem` [email, passsword, status].
 - [RF005]                       O `usuários` poderá acessar somente a area de intranet/App e `administradores` teram acesso a area App e dashboard.
@@ -282,7 +282,7 @@ O diagrama de classes do projeto, foi realizado no software  [`StarUML`](https:/
         
 - :label: :boom: Ajustes da section blog com component article\Grid.
 - :label: :boom: Criado as relações de Role, Permission e module.
-- :label: :boom: 
+- :label: :boom: Ajutar avatar de usuário na navbar [*3]
 - :label: :boom: 
 - :label: 
 - :label: 
@@ -292,7 +292,7 @@ O diagrama de classes do projeto, foi realizado no software  [`StarUML`](https:/
 - [*1] https://www.youtube.com/watch?v=G0IhDFyj2vU&t=4239s&ab_channel=FilamentBrasil
 - [*2] https://filamentphp.com/docs/3.x/panels/resources/widgets#creating-a-resource-widget
 - [*2] https://www.youtube.com/watch?app=desktop&v=_VnZAHbK4w4&ab_channel=CodeWithTony
-- [*]
+- [*3] https://filamentphp.com/docs/3.x/panels/tenancy#setting-up-avatars
 - [*]
 - [*]
 
