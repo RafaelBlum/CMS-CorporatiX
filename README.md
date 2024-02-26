@@ -130,8 +130,15 @@ sendo atendidos.
 
 
 
-- [RF006]                       O Sistema deve ter pergntas frequentes, que serão administradas.
+- [RF006]                       O Sistema deve ter perguntas frequentes `CommonQuestions`, que serão administradas.
+
 - [RF007] :white_check_mark:    O Sistema deve ter administração de `usuários CRUD`.
+                                    - Listagem                              OK
+                                    - Criar                                 OK
+                                    - Editar                                OK
+                                    - Deletar                               OK
+                                    - Profile  [REFERÊNCIA *4]                                         
+                                    - No listar não pode estar User logado
 - [RF008] :white_check_mark:    O Sistema deve ter administração de `categorias  CRUD` e relações.
 - [RF009] :white_check_mark:    O Sistema deve ter administração dos `artigos  CRUD` e relações.
 - [RF009] :white_check_mark:    O Sistema deve ter administração dos `tags  CRUD` e relações.
@@ -273,26 +280,29 @@ O diagrama de classes do projeto, foi realizado no software  [`StarUML`](https:/
 - :label: :heavy_check_mark: Configurações do .env, app/config.
 - :label: :heavy_check_mark: Criação das Resources do Filament das migrates.
 - :label: :boom: Configurações da ArticleResource de form, table.
-        - Criação da página personalizada infolist [*1].
+        - Criação da página personalizada infolist [REFERÊNCIA *1].
         - add metodo para adicionar o slug dinamicamente pelo title.
-        - Criação de Custom Widgets [*2].
+        - Criação de Custom Widgets [REFERÊNCIA *2].
         - 
         - 
         - 
         
 - :label: :boom: Ajustes da section blog com component article\Grid.
 - :label: :boom: Criado as relações de Role, Permission e module.
-- :label: :boom: Ajutar avatar de usuário na navbar [*3]
+- :label: :boom: Ajutar avatar de usuário na navbar [REFERÊNCIA *3]
 - :label: :boom: 
 - :label: 
 - :label: 
 - :label: [RF007]: Criando class Observer de User para observar os eventos de criação, para posterior envio de e-mail para usuários com seu `Email e senha` de acesso.
                     - https://laravel.com/docs/10.x/eloquent#observers
-#### Referências
+##### REFERÊNCIAS
 - [*1] https://www.youtube.com/watch?v=G0IhDFyj2vU&t=4239s&ab_channel=FilamentBrasil
 - [*2] https://filamentphp.com/docs/3.x/panels/resources/widgets#creating-a-resource-widget
 - [*2] https://www.youtube.com/watch?app=desktop&v=_VnZAHbK4w4&ab_channel=CodeWithTony
 - [*3] https://filamentphp.com/docs/3.x/panels/tenancy#setting-up-avatars
+- [*4] https://filamentphp.com/docs/3.x/panels/users#customizing-the-authentication-features
+- [*]
+- [*]
 - [*]
 - [*]
 

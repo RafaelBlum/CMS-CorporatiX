@@ -2,10 +2,12 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Auth\EditProfile;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Navigation\MenuItem;
+use Filament\Navigation\NavigationGroup;
 use Filament\Navigation\NavigationItem;
 use Filament\Pages;
 use Filament\Panel;
@@ -38,6 +40,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->profile(EditProfile::class)
             ->brandName(config('app.name'))
             ->favicon(asset('image/readme/iconLogoCorporatix120x142.png'))
             ->viteTheme('resources/css/filament/admin/theme.css')
@@ -50,7 +53,7 @@ class AdminPanelProvider extends PanelProvider
                 ->url('http://127.0.0.1:8000/')
                 ->icon('heroicon-o-globe-asia-australia')
                 ->group('Links')
-                ->sort(1)
+                ->sort(5)
                 //->visible(fn(): bool => auth()->user()->can('Dashboard'))
             ])
             ->userMenuItems([

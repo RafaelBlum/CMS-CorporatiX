@@ -216,4 +216,9 @@ class Settings extends Page
                 ->send();
         }
     }
+
+    protected function hasFullWidthFormActions(): bool
+    {
+        return false;
+    }
 }
