@@ -31,7 +31,7 @@ class EditProfile extends BaseEditProfile
                         Section::make()
                             ->schema([
                                 FileUpload::make('avatar')
-                                    ->disableLabel(true)
+                                    ->label('')
                                     ->disk('public')
                                     ->directory('setting_images'),
                             ])

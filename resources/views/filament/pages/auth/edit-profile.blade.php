@@ -43,7 +43,7 @@
     <x-filament-panels::form wire:submit="save">
 
         {{ $this->form }}
-        {{dd($this->data, $this->form->getState())}}
+{{--        {{dd($this->data, $this->form->getState())}}--}}
         <x-filament-panels::form.actions
             :actions="$this->getCachedFormActions()"
             :full-width="$this->hasFullWidthFormActions()"
