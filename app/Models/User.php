@@ -4,7 +4,10 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Filament\Forms\Components\Placeholder;
+use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
+use Filament\Panel;
+use App\Enums\PanelTypeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -60,4 +63,13 @@ class User extends Authenticatable implements HasAvatar
         return asset('storage/' . $this->avatar);
     }
 
+//    public function canAccessPanel(Panel $panel): bool
+//    {
+//        if ($this->panel === PanelTypeEnum::USER && $panel->getId() === PanelTypeEnum::ADMIN->value) {
+//
+//            return false;
+//        }
+//        return true;
+//
+//    }
 }

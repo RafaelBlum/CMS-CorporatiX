@@ -114,7 +114,8 @@ sendo atendidos.
 - [RF007]                       O Sistema deve ter `configurações [unico e não deletavel]` para administração de dados da página institucional e admin.
 - [RF002] :white_check_mark:    O Sistema terá uma area restrita para os colaboradores e admins (`intranet/App`).
 - [RF003] :white_check_mark:    O Sistema terá uma `dashboard` para somente administradores com `menu das funcionalidades`.
-- [RF003] :white_check_mark:    O sistema terá `controle de acesso` a funcionalidades a partir de suas (ACL) permissões, seja usuário ou admin.
+- [RF003]                       O sistema terá `controle de acesso` a funcionalidades a partir de suas (ACL) permissões, seja usuário ou admin.
+                                    - verificar metodo de acesso user camPanel e propriedade panel do user.
 - [RF004]                       O Sistema deve autenticar o `usuários` e `administradores` atravez de `atributo que os definem` [email, passsword, status].
 - [RF005]                       O `usuários` poderá acessar somente a area de intranet/App e `administradores` teram acesso a area App e dashboard.
 - [RF006]                       O sistema deve ter cadastro de novos usuários somente por administradores, com seu `perfil de acesso` e um `e-mail único`.

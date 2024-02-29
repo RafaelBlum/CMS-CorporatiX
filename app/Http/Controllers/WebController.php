@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Setting;
+use http\Client\Curl\User;
 use Illuminate\Http\Request;
 
 class WebController extends Controller
@@ -12,6 +13,8 @@ class WebController extends Controller
     public function home()
     {
         $setting = Setting::first();
+//        $setting2 = \App\Models\User::all()->select(['id', 'name'])->toArray();
+//        dd($setting2);
         return view('public.landing', compact('setting'));
     }
 

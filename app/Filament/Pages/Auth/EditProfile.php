@@ -2,16 +2,10 @@
 
 namespace App\Filament\Pages\Auth;
 
-use App\Forms\Components\CustomPlasceHolder;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Group;
-use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
-use Filament\Pages\Page;
 use Filament\Pages\Auth\EditProfile as BaseEditProfile;
 
 class EditProfile extends BaseEditProfile
@@ -45,7 +39,7 @@ class EditProfile extends BaseEditProfile
                                 $this->getPasswordConfirmationFormComponent(),
                             ])
                             ->columnSpan(2),
-                 ]),
+                    ]),
             ])->statePath('data')->columns([
                 'default' => 2,
                 'sm' => 1,
