@@ -11,6 +11,8 @@ use App\Config;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use \Illuminate\Support\Facades\DB;
+use Filament\Contracts\Plugin;
+use Filament\FilamentManager;
 
 if(!function_exists('aniversariantes_mes')){
     function aniversariantes_mes(){
@@ -241,7 +243,7 @@ if(!function_exists('respond_survey')){
 
         $filtro = $pesquisa->whereIn('email', Auth::user()->email);
 
-        //USUÁRIO JÁ RESPONDEU
+        //USUï¿½RIO Jï¿½ RESPONDEU
         if($filtro->count() == 0){
             return true;
         }

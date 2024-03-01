@@ -7,24 +7,27 @@ use Filament\Support\Contracts\HasColor;
 /**
  * Enum create for especification type users in seeders, factories and method canAccessPanel User model
  */
-enum PanelTypeEnum: string
+enum PanelTypeEnum: string implements HasLabel, HasColor
 {
     case ADMIN  =   "admin";
-    case USER    =   "user";
+    case APP    =   "app";
 
-    public function getLabels(): string
+
+
+    public function getLabel(): ?string
     {
-        return match ($this){
-            self::ADMIN => 'admin',
-            self::USER  => 'user'
+        return match ($this) {
+            self::ADMIN => 'Administrador',
+            self::APP => 'Usuário',
         };
     }
 
-//    public function getColor(): string | array | null
-//    {
-//        return match ($this) {
-//            self::ADMIN => 'success',
-//            self::USER => 'warning',
-//        };
-//    }
+
+    public function getColor(): string | array | null
+    {
+        return match ($this) {
+        self::ADMIN => 'success',
+            self::APP => 'warning',
+        };
+    }
 }

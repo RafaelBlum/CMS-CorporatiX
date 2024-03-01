@@ -17,3 +17,11 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('play', function () {
     dd(now()->subYears(25)->format('Y-m-d'), fake()->safeEmail(), '(51) ' . fake()->cellphone);
 });
+
+Artisan::command('users', function () {
+    $user = \App\Models\User::find(2);
+
+    $panel = new \Filament\Panel();
+
+    dd($panel === 'admin');
+});

@@ -15,7 +15,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use function Filament\Tables\Filters\boolean;
 
-class User extends Authenticatable implements HasAvatar
+class User extends Authenticatable implements HasAvatar, FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -63,13 +63,14 @@ class User extends Authenticatable implements HasAvatar
         return asset('storage/' . $this->avatar);
     }
 
-//    public function canAccessPanel(Panel $panel): bool
-//    {
-//        if ($this->panel === PanelTypeEnum::USER && $panel->getId() === PanelTypeEnum::ADMIN->value) {
-//
-//            return false;
-//        }
-//        return true;
-//
-//    }
+    public function canAccessPanel(Panel $panel): bool
+    {
+        if ($this->role->name === PanelTypeEnum::APP && $panel->getId() === PanelTypeEnum::ADMIN->value) {
+
+            return false;
+        }
+
+        return true;
+
+    }
 }

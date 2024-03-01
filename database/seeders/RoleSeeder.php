@@ -23,8 +23,8 @@ class RoleSeeder extends Seeder
         ])->permissions()->sync($adminPermissions->pluck('id'));
 
         Role::updateOrCreate([
-            'name' => 'user',
-            'slug' => 'usuario',
+            'name' => 'app',
+            'slug' => 'aplicativo',
             'deletable' => false
         ]);
     }
