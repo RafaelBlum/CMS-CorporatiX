@@ -238,7 +238,7 @@ E neste projeto foi realizado uma pesquisa para se colocar o melhor layout, e pe
 
 <p align="center">
 	<a href="#"  target="_blank" title="logo">
-		<img src="/public/image/readme/iconLogoCorporatix120x142.png" alt="logo" width="250">
+		<img src="/public/image/readme/iconLogoCorporatix120x142.png" alt="logo" width="180">
 	</a>
 </p>
 
