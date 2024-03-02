@@ -1,6 +1,6 @@
 <p align="center">
 	<a href="#"  target="_blank" title="Visite CorporatiX">
-		<img src="/public/image/readme/logo479x118.png" alt="Sistema CMS CorporatiX" width="340px">
+		<img src="/public/image/readme/corporatix-logo-h-380.png" alt="Sistema CMS CorporatiX" width="340px">
 	</a>
 </p>
 
@@ -238,7 +238,7 @@ E neste projeto foi realizado uma pesquisa para se colocar o melhor layout, e pe
 
 <p align="center">
 	<a href="#"  target="_blank" title="logo">
-		<img src="/public/image/readme/logo250x62.png" alt="logo" width="250">
+		<img src="/public/image/readme/iconLogoCorporatix120x142.png" alt="logo" width="250">
 	</a>
 </p>
 
