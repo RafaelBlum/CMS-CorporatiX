@@ -53,7 +53,7 @@ class AdminPanelProvider extends PanelProvider
                 ->url('http://127.0.0.1:8000/')
                 ->icon('heroicon-o-globe-asia-australia')
                 ->group('Links')
-                ->sort(5)
+                ->sort(5)->openUrlInNewTab()
                 //->visible(fn(): bool => auth()->user()->can('Dashboard'))
             ])
             ->userMenuItems([

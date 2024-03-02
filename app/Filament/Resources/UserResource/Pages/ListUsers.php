@@ -3,11 +3,11 @@
 namespace App\Filament\Resources\UserResource\Pages;
 
 use App\Filament\Resources\UserResource;
-use App\Traits\HasTablePublishedTabs;
 use Filament\Actions;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 class ListUsers extends ListRecords
 {
@@ -24,10 +24,18 @@ class ListUsers extends ListRecords
     public function getTabs(): array
     {
 
+//        $role = DB::table('role')
+////            ->inRandomOrder()
+////            ->first();
+////        dd($role);
+
         $model = static::getModel()::query();
+
         $total = $model->count();
         $published = $model->whereStatus(true)->count();
         $unpublished = $total - $published;
+//        $adms = $model->where('role.name', '=', 'admin')->count();
+
         return [
             'all' => Tab::make()
                 ->label('Todos')
@@ -43,6 +51,9 @@ class ListUsers extends ListRecords
                 ->icon('heroicon-o-users')
                 ->badge($unpublished)
                 ->modifyQueryUsing(fn (Builder $query) => $query->where('status', false)),
+//            'admins' => Tab::make()
+//                ->label('Adm')
+//                ->modifyQueryUsing(fn (Builder $query) => $query->where('role.name', '=', 'admin'))
         ];
     }
 }

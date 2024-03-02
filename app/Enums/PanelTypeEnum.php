@@ -18,7 +18,7 @@ enum PanelTypeEnum: string implements HasLabel, HasColor
     {
         return match ($this) {
             self::ADMIN => 'Administrador',
-            self::APP => 'Usuário',
+            self::APP   => 'Usuário',
         };
     }
 
@@ -26,8 +26,8 @@ enum PanelTypeEnum: string implements HasLabel, HasColor
     public function getColor(): string | array | null
     {
         return match ($this) {
-        self::ADMIN => 'success',
-            self::APP => 'warning',
+            self::ADMIN => 'success',
+            self::APP   => 'warning',
         };
     }
 }
