@@ -6,6 +6,7 @@ use App\Filament\Resources\CategoryResource\Pages;
 use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Models\Category;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Forms\Set;
 use Filament\Infolists\Components\ImageEntry;
@@ -17,6 +18,7 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 
@@ -28,25 +30,19 @@ class CategoryResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-bookmark';
     protected static ?string $activeNavigationIcon = 'heroicon-o-book-open';
 
-    protected static ?string $pluralModelLabel = "Categorias";
     protected static ?string $modelLabel = "Categoria";
 
-
-
-    /**
-     * Form create or edit category
-    */
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                TextInput::make('name')
                     ->label('Título da categoria')
                     ->required()
                     ->maxLength(100)
                     ->live(debounce: '1000')
                     ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
-                Forms\Components\TextInput::make('slug')
+                TextInput::make('slug')
                     ->maxLength(255)
                     ->disabled()
                     ->dehydrated()
@@ -61,14 +57,25 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')->searchable(),
-                TextColumn::make('articles_count')->counts('articles')->label('Artigos pertencentes'),
+                TextColumn::make('name')
+                    ->label('Nome')
+                    ->description(function (Category $record) {
+                        return "Total de artigos " . $record->articles()->count();
+                    })
+                    ->tooltip(fn (Model $record): string => "Categoria {$record->name}")
+                    ->extraAttributes([
+                        'class' => 'text-xs',
+                    ])
+                    ->searchable(),
+
+                TextColumn::make('articles_count')
+                    ->counts('articles')
+                    ->label('Artigos pertencentes'),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
@@ -76,19 +83,6 @@ class CategoryResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    /**
-     * view category info
-     */
-    public static function infolist(Infolist $infolist): Infolist
-    {
-        return $infolist->schema([
-            Section::make([
-                TextEntry::make('name')
-                ->size('lg')->weight('bold')->hiddenLabel(),
-            ]),
-        ])->columns(3);
     }
 
     /**

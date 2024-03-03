@@ -39,7 +39,6 @@ class UserResource extends Resource
     protected static ?string $navigationGroup = "Admin Usuários";
     protected static ?string $activeNavigationIcon = 'heroicon-o-users';
 
-    protected static ?string $pluralModelLabel = "Usuários";
     protected static ?string $modelLabel = "Usuário";
 
     protected static ?string $navigationIcon = 'heroicon-o-user-circle';
@@ -93,6 +92,7 @@ class UserResource extends Resource
                                             ->label('Senha')
                                             ->password()
                                             ->required()
+                                            ->minLength(3)
                                             ->maxLength(255),
                                     ])->columnSpan(2),
                                 ]),
@@ -182,6 +182,9 @@ class UserResource extends Resource
 
                 TextColumn::make('name')
                     ->label('Nome')
+                    ->description(function (User $record) {
+                        return ($record->role->name === "admin" ? 'Acesso administrativo':'acesso aplicativo');
+                    })
                     ->searchable(),
 
                 TextColumn::make('email')
