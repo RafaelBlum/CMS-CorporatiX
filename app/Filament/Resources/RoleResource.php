@@ -5,18 +5,27 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\RoleResource\Pages;
 use App\Filament\Resources\RoleResource\RelationManagers;
 use App\Models\Role;
+use Filament\Actions\DeleteAction;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class RoleResource extends Resource
 {
     protected static ?string $model = Role::class;
+
+
 
     protected static ?string $navigationGroup = "Permissões";
     protected static ?string $activeNavigationIcon = 'heroicon-o-hand-raised';
@@ -30,13 +39,18 @@ class RoleResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                TextInput::make('name')
                     ->required()
+                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                    ->live(debounce: '1000')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('slug')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('description')
+
+                TextInput::make('slug')
+                    ->disabled(true)
+                    ->dehydrated()
+                    ->unique(ignoreRecord: true),
+
+                TextInput::make('description')
                     ->maxLength(255),
 
                 Select::make('Permições')
@@ -45,7 +59,8 @@ class RoleResource extends Resource
                     ->preload()
                     ->relationship('permissions', 'name'),
 
-                Forms\Components\Toggle::make('deletable')
+                Toggle::make('deletable')
+                    ->disabled(($form->getOperation() == 'create' ? false: ($form->model->deletable != true && $form->model->id == 1 || $form->model->id == 2 ? true : false)))
                     ->required(),
             ]);
     }
@@ -54,34 +69,29 @@ class RoleResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('slug')
+
+                TextColumn::make('slug')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('description')
+
+                TextColumn::make('description')
                     ->searchable(),
-                Tables\Columns\IconColumn::make('deletable')
+
+                IconColumn::make('deletable')
                     ->boolean(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
-            ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+        //
+    ])
+        ->actions([
+            EditAction::make(),
+        ])
+        ->bulkActions([
+            BulkActionGroup::make([
+
+            ]),
+        ]);
     }
 
     public static function getRelations(): array

@@ -4,6 +4,7 @@ namespace App\Filament\Resources\RoleResource\Pages;
 
 use App\Filament\Resources\RoleResource;
 use Filament\Actions;
+use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
 class EditRole extends EditRecord
@@ -12,8 +13,11 @@ class EditRole extends EditRecord
 
     protected function getHeaderActions(): array
     {
-        return [
-            Actions\DeleteAction::make(),
-        ];
+        if($this->data['deletable'] != false){
+            return [
+                DeleteAction::make(),
+            ];
+        }
+        return [];
     }
 }

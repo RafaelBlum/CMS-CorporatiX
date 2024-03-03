@@ -33,8 +33,9 @@ Artisan::command('users-access', function () {
 Artisan::command('query', function () {
 //    $user = \App\Models\User::all();
 //    $user = \App\Models\User::findOrFail(10);
-    $user = \App\Models\User::where('role_id', '=', 3)->firstOrFail();
+    $user = \App\Models\User::find(1);
 
-    dd($user);
+    //dd($user->role);
+    dd($user->hasPermission('permissao.criacao2'));
 
 });
