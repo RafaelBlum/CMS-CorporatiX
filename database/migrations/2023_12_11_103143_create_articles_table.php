@@ -22,13 +22,7 @@ return new class extends Migration
             $table->longText('content')->nullable();
             $table->dateTime('published_at')->nullable();
             $table->dateTime('scheduled_for')->nullable();
-            $table->enum('status', [
-                'draft',
-                'published',
-                'pending review',
-                'scheduled',
-                'private'
-            ])->default('draft');
+            $table->string('status')->default('DRAFT');
             $table->unsignedInteger('views')->nullable(0);
             $table->string('featured_image_url')->nullable();
             $table->timestamps();

@@ -23,7 +23,7 @@ class ArticleStatsOverview extends BaseWidget
 
         return [
             Stat::make('Total de artigos', Article::all()->count())
-                ->description('Publicados: ', $publishe)
+                ->description('Publicados '. $publishe)
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->color('success'),
             Stat::make('Total de categorias', Category::all()->count())

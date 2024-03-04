@@ -85,11 +85,12 @@ class Settings extends Page
                     Section::make()->schema([
                         CustomPlasceHolder::make('Placeholder')
                             ->label('Imagem principal site')
-                            ->content('JPG, GIF or PNG. Max size of 1024'),
+                            ->content('Somente PNG. Max size of 1024'),
 
                         FileUpload::make('header_logo_url')
                             ->disableLabel(true)
                             ->disk('public')
+                            ->acceptedFileTypes(['image/png'])
                             ->directory('setting_images')
                         ,
                     ]),
@@ -110,7 +111,7 @@ class Settings extends Page
                                 ->avatar()
                                 ->imageEditor()
                                 ->circleCropper()
-                                ->acceptedFileTypes(['image/png', 'image/jpeg']),
+                                ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/jpg', 'image/webp']),
 
 
                         ])->columnSpan(1),

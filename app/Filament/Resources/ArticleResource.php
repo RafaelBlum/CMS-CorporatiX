@@ -33,7 +33,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
-
+use App\Enums\StatusArticleEnum;
 
 class ArticleResource extends Resource
 {
@@ -144,13 +144,7 @@ class ArticleResource extends Resource
                                         ->hintIcon('heroicon-m-question-mark-circle', tooltip: 'Selecione o status do seu artigo.')
                                         ->hintColor('primary')
                                         ->default('draft')
-                                        ->options([
-                                            'draft' => 'Rascunho',
-                                            'published' => 'Publicar',
-                                            'pending review' => 'Pendente para analise',
-                                            'scheduled' => 'Programado',
-                                            'private' => 'Privado'
-                                        ])
+                                        ->options(StatusArticleEnum::class)
                                         ->live()
                                         ->required(),
 
@@ -251,19 +245,15 @@ class ArticleResource extends Resource
                     ->label('Tags')
                     ->badge(),
 
-                BooleanColumn::make('published_at')
-                    ->label('Status publicação'),
+                Tables\Columns\TextColumn::make('status')
+                    ->badge()
+                    ->searchable(),
 
 
             ])
             ->filters([
-                SelectFilter::make('status')->options([
-                    'draft' => 'Rascunho',
-                    'published' => 'Publicar',
-                    'pending review' => 'Pendente para analise',
-                    'scheduled' => 'Programado',
-                    'private' => 'Privado'
-                ]),
+                SelectFilter::make('status')
+                    ->options(StatusArticleEnum::class),
 
                 SelectFilter::make('category_id')
                     ->label('Categorias')

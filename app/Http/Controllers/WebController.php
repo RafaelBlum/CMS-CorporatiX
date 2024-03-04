@@ -13,8 +13,6 @@ class WebController extends Controller
     public function home()
     {
         $setting = Setting::first();
-//        $setting2 = \App\Models\User::all()->select(['id', 'name'])->toArray();
-//        dd($setting2);
         return view('public.landing', compact('setting'));
     }
 
