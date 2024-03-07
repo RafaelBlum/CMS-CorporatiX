@@ -21,16 +21,21 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use App\Filament\Clusters\Blog;
+use Filament\Pages\SubNavigationPosition;
 
 class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
 
-    protected static ?string $navigationGroup = "Blog";
+//    protected static ?string $navigationGroup = "Blog";
     protected static ?string $navigationIcon = 'heroicon-o-bookmark';
     protected static ?string $activeNavigationIcon = 'heroicon-o-book-open';
 
     protected static ?string $modelLabel = "Categoria";
+
+    protected static ?string $cluster = Blog::class;
+    protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
 
     public static function form(Form $form): Form
     {

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+
 use App\Filament\Resources\ArticleResource\Pages;
 use App\Filament\Resources\ArticleResource\RelationManagers;
 use App\Filament\Resources\ArticleResource\Widgets\ArticleStatsOverview;
@@ -35,18 +36,22 @@ use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use App\Enums\StatusArticleEnum;
 
+use App\Filament\Clusters\Blog;
+use Filament\Pages\SubNavigationPosition;
+
 class ArticleResource extends Resource
 {
     protected static ?string $model = Article::class;
 
-    protected static ?string $navigationGroup = "Blog";
+//    protected static ?string $navigationGroup = "Blog";
     protected static ?string $navigationIcon = 'heroicon-o-newspaper';
     protected static ?string $activeNavigationIcon = 'heroicon-o-book-open';
 
     protected static ?string $pluralModelLabel = "Artigos";
     protected static ?string $modelLabel = "Artigo";
 
-
+    protected static ?string $cluster = Blog::class;
+    protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
     /**
      * Form create or edit article
      */
@@ -363,9 +368,5 @@ class ArticleResource extends Resource
         ];
     }
 
-    public static function getNavigationBadge(): ?string
-    {
-        return static::getModel()::count();
-    }
 }
 

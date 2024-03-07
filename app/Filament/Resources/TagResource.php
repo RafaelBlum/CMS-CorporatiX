@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Filament\Resources;
-
 use App\Filament\Resources\TagResource\Pages;
 use App\Filament\Resources\TagResource\RelationManagers;
 use App\Models\Tag;
@@ -17,18 +16,21 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use App\Filament\Clusters\Blog;
+use Filament\Pages\SubNavigationPosition;
 
 class TagResource extends Resource
 {
     protected static ?string $model = Tag::class;
 
-    protected static ?string $navigationGroup = "Blog";
+//    protected static ?string $navigationGroup = "Blog";
     protected static ?string $navigationIcon = 'heroicon-o-tag';
     protected static ?string $activeNavigationIcon = 'heroicon-o-book-open';
 
     protected static ?string $modelLabel = "Tag";
 
-
+    protected static ?string $cluster = Blog::class;
+    protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
 
     public static function form(Form $form): Form
     {

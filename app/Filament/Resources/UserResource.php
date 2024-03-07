@@ -138,6 +138,9 @@ class UserResource extends Resource
                             TextInput::make('branch_line')
                                 ->label('Ramal')
                                 ->mask('999-999'),
+//                            dd($form->model->address->street),
+                            TextInput::make('address.street')
+                                ->label('Rua'),
                         ])
                         ->columnSpan(1),
 
@@ -209,6 +212,10 @@ class UserResource extends Resource
                     ->label('WhatApp')
                     ->searchable(),
 
+                TextColumn::make('address.street')
+                    ->label('Rua')
+                    ->searchable(),
+
 
             ])
             ->filters([
@@ -258,6 +265,7 @@ class UserResource extends Resource
     {
         return [
             RelationManagers\ArticlesRelationManager::class,
+            RelationManagers\AddressRelationManager::class,
         ];
     }
 

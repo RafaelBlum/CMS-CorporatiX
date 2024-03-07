@@ -21,87 +21,7 @@
 	</a>
 </p>
 
-<br>
 
-## :rocket: Planejamento do sistema [`CMS CorporatiX`](https://www.corporatix.online/)
-Checklist das etapas de planejamento para a atualização e desenvolvimento do `sistema web corporatix`.
-
-### :label: Contextualização
-- Sobre
-- Contextualização de problema
-- Contextualização da solução
-- Visões da Qualidade de Software
-
-### :label: Requisitos de software
-- requisitos funcionais (RF)
-- requisitos não funcionais (RNF)
-
-### :label: Prototipagem
-- Diagrama Entidade-Relacionamento (DER)
-
-### :label: Detalhes técnicos
-- Definir arquitetura do projeto
-- Definir tecnologias (serviços externos, libs, frameworks, hospedagem etc.)
-- Problemas e desafios encontrados
-- Prototipagem finais
-- Conclusão final
-
-### :label: Contatos
-
-<hr style="border: #0d0c22 2px solid; margin-top: 5px; margin-bottom: 5px; "/>
-
-## :heavy_check_mark: Contextualização
-
-### :label: Sobre
-
-[`CorporatiX`](https://corporatix.online/) é um projeto criado para ser um portal da empresa tanto de todos funcionários como da própria empresa. 
-[`CorporatiX`](https://corporatix.online/) será uma `intranet totalmente moderna`, com um site institucional da empresa, com todas qualidades de 
-desenvolvimento e tecnologias frontend e todos requisitos de um `poderoso CMS` para gerenciamento de todas funcionalidades 
-da empresa, afim de resolver problemas de comunicação corporativa e facilitar o acesso as informações.
-
-
-
-> [`CorporatiX`](https://corporatix.online/) será um sistema de Gestão de Conteúdos, de forma bem direta, o CMS permitirá que você crie, organize, publique, 
-> configure e apague conteúdos do site. O grande diferencial do CMS, como o próprio nome diz, é a possibilidade de gerenciar 
-> conteúdo dinâmico de uma forma simples, ou seja, manter um blog, loja virtual ou outro tipo de site que precisa ser atualizado 
-> de forma constante. Então o CMS é a solução ideal para todo mundo que precisa de um site que não seja 100% estático e momentâneo.
-
-
-### :label: Contextualização de problema
-
-O objetivo é criar uma versão melhor do frontend, mas adaptado aos dispositivos, pois existiram alguns problemas na 
-interface, as lingugens base, bibliotecas e dependencias ficaram desatualizas e melhorar o desempenho de processamento do sistema. 
-Outro problemas é não existir o gerenciamento do portal, uma interface de configurações para os administradores.
-
-
-### :label: Contextualização de solução
-Nesta versão serão inseridas novas `tecnologias` em destaque no mercado, novos recursos para melhor desempenho, melhorias na interface e outras idéias para o sistema. 
-Outro objetivo importante é a atualização da stack base como `PHP`, `framework Laravel` nas novas vers]oes até suas `bibliotecas e dependencias` e por fim desenvolver uma area administrativa mais atrativa, moderna e com novos recursos.
-
-- Tendência em geral e percepção da qualidade (visão do cliente).
-- Aparecimento de novos recursos e facilidades, elevação dos padrões mínimos de expectativa do cliente, inovação tecnológica deixou de ser diferencial competitivo e
-passou a ser atributo da qualidade.
-- Uso das tecnoligias da TALL Stack (Tailwindcss, Alpinejs, Laravel e Livewire).
-- Melhoria da area administrativa com a tecnologia Filament Php 3.2.
-
-
-### :label: Visões da Qualidade de Software
-
-#### Visão do Usuário
-- Preocupações no desenvolvimento, como se o usuário está interessado na utilização e no desempenho do
-software.
-- Se há interesse nas medidas externas de qualidade, como:
-        - as funções especificadas estão disponíveis?
-        - qual é a confiabilidade do software e sua eficiência?
-        - é fácil de usar?
-        - é fácil para transferir para outro ambiente operacional
-
-
-#### Visão do Desenvolvedor
-- Deve ser coerente com as expectativas do usuário - `requisitos + aceitação`.
-- Interesse em medidas internas de qualidade.
-        - ex: controle de caminhos + tempo de espera = tempo de resposta.
-- Consideração da qualidade de produtos intermediários.
 
 ## :heavy_check_mark: Requisitos de software
 
@@ -140,9 +60,11 @@ sendo atendidos.
                                     - Deletar                               OK
                                     - Profile  [REFERÊNCIA *4]                                         
                                     - No listar não pode estar User logado
+                                    
 - [RF008] :white_check_mark:    O Sistema deve ter administração de `categorias  CRUD` e relações.
 - [RF009] :white_check_mark:    O Sistema deve ter administração dos `artigos  CRUD` e relações.
 - [RF009] :white_check_mark:    O Sistema deve ter administração dos `tags  CRUD` e relações.
+                                    - Clusterizar: Os 3 resources em uma pagina [REFERÊNCIA *5-6]
 
 - [RF010] :white_check_mark:    O Sistema deve permitir a pesquisa de usuários, categorias, tags e artigos.
 - [RF011] :white_check_mark:    O Sistema deve ter paginação nas listagens administrativa.
@@ -302,8 +224,8 @@ O diagrama de classes do projeto, foi realizado no software  [`StarUML`](https:/
 - [*2] https://www.youtube.com/watch?app=desktop&v=_VnZAHbK4w4&ab_channel=CodeWithTony
 - [*3] https://filamentphp.com/docs/3.x/panels/tenancy#setting-up-avatars
 - [*4] https://filamentphp.com/docs/3.x/panels/users#customizing-the-authentication-features
-- [*]
-- [*]
+- [*5] https://filamentphp.com/docs/3.x/panels/resources/getting-started#sub-navigation-position
+- [*6] https://www.youtube.com/watch?v=V909WVmyGMU&list=PL9zLINrtn0_pNgp-PjrvQXi7fctF-idNC&index=25
 - [*]
 - [*]
 

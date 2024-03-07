@@ -10,6 +10,7 @@ use Filament\Panel;
 use App\Enums\PanelTypeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -65,6 +66,11 @@ class User extends Authenticatable implements HasAvatar, FilamentUser
     public function hasPermission($permission): bool
     {
         return $this->role->permissions()->where('slug', $permission)->first() ? true : false;
+    }
+
+    public function address(): HasOne
+    {
+        return $this->hasOne(Address::class);
     }
 
     /**

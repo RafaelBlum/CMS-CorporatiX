@@ -9,4 +9,13 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateArticle extends CreateRecord
 {
     protected static string $resource = ArticleResource::class;
+
+    public function getSubNavigation(): array
+    {
+        if (filled($cluster = static::getCluster())) {
+            return $this->generateNavigationItems($cluster::getClusteredComponents());
+        }
+
+        return [];
+    }
 }
