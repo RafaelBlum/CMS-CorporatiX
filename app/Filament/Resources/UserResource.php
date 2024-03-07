@@ -8,6 +8,7 @@ use App\Filament\Resources\UserResource\RelationManagers;
 use App\Forms\Components\CustomPlasceHolder;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
@@ -45,6 +46,8 @@ class UserResource extends Resource
 
     public static function form(Form $form): Form
     {
+
+        $addres = $form->model->address;
         return $form
             ->schema([
 
@@ -138,8 +141,24 @@ class UserResource extends Resource
                             TextInput::make('branch_line')
                                 ->label('Ramal')
                                 ->mask('999-999'),
-//                            dd($form->model->address->street),
+
+
+                            Forms\Components\Group::make()->relationship('address')->mutateRelationshipDataBeforeSaveUsing(function (array $data): array {
+//                                dd($data, auth()->id(), auth()->user()->address());
+                                $data['user_id'] = auth()->id();
+                                dd($data);
+                                return $data;
+                            })
+                                ->schema([
+
+                                        TextInput::make('street'),
+                                        TextInput::make('cep'),
+                      ]),
+
                             TextInput::make('address.street')
+                                ->label('Rua'),
+
+                            TextInput::make('address.number')
                                 ->label('Rua'),
                         ])
                         ->columnSpan(1),

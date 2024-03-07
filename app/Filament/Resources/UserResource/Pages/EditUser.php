@@ -6,6 +6,7 @@ use App\Filament\Resources\UserResource;
 use Filament\Actions;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Database\Eloquent\Model;
 
 class EditUser extends EditRecord
 {
@@ -26,5 +27,14 @@ class EditUser extends EditRecord
             ->body('Dados do usuário processado...')
             ->success()
             ->send();
+    }
+
+    protected function handleRecordEdit(array $data): Model
+    {
+        dd($data);
+        $record =  static::getModel()::create($data);
+        $record->address()->create($data['address']);
+
+        return $record;
     }
 }

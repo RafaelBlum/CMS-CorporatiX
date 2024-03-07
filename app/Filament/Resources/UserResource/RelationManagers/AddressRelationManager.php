@@ -30,7 +30,6 @@ class AddressRelationManager extends RelationManager
             ->recordTitleAttribute('street')
             ->columns([
                 Tables\Columns\TextColumn::make('street'),
-                dd($table)
             ])
             ->filters([
                 //

@@ -10,10 +10,15 @@ class Address extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $guarded = ['id', 'user_id'];
 
     protected $fillable = [
-        'street'
+        'street',
+        'number',
+        'bairro',
+        'city',
+        'state',
+        'cep'
     ];
 
     public function user(): BelongsTo

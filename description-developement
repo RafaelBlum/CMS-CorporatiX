@@ -9,6 +9,15 @@ Pendencias::
 [  ] -
 [  ] -
 
+//
+//                            dd("TEST DD:",
+////                                $form->getState(),
+////                                self::$model,
+//                                $form
+////                                $form->model,
+////                                $form->model->address
+//                            ),
+
 Comandos de configurações
 - php artisan about
 
