@@ -6,6 +6,7 @@ use App\Enums\MaritalStatusEnum;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Forms\Components\CustomPlasceHolder;
+use App\Models\Address;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
@@ -30,6 +31,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use stdClass;
 
 class UserResource extends Resource
@@ -47,7 +49,8 @@ class UserResource extends Resource
     public static function form(Form $form): Form
     {
 
-        $addres = $form->model->address;
+        $id = $form->model->id;
+
         return $form
             ->schema([
 
@@ -94,7 +97,7 @@ class UserResource extends Resource
                                         TextInput::make('password')
                                             ->label('Senha')
                                             ->password()
-                                            ->required()
+                                            //->required()
                                             ->minLength(3)
                                             ->maxLength(255),
                                     ])->columnSpan(2),
@@ -141,25 +144,6 @@ class UserResource extends Resource
                             TextInput::make('branch_line')
                                 ->label('Ramal')
                                 ->mask('999-999'),
-
-
-                            Forms\Components\Group::make()->relationship('address')->mutateRelationshipDataBeforeSaveUsing(function (array $data): array {
-//                                dd($data, auth()->id(), auth()->user()->address());
-                                $data['user_id'] = auth()->id();
-                                dd($data);
-                                return $data;
-                            })
-                                ->schema([
-
-                                        TextInput::make('street'),
-                                        TextInput::make('cep'),
-                      ]),
-
-                            TextInput::make('address.street')
-                                ->label('Rua'),
-
-                            TextInput::make('address.number')
-                                ->label('Rua'),
                         ])
                         ->columnSpan(1),
 
@@ -173,6 +157,33 @@ class UserResource extends Resource
                         ->columnSpan(2),
                     ]),
 
+                Section::make()->schema([
+                    Grid::make(3)->schema([
+
+                        Group::make()
+                            ->relationship('address')
+                            ->schema([
+                                TextInput::make('street')
+                                    ->label('Rua'),
+
+                                TextInput::make('number')
+                                    ->label('Numero'),
+
+                                TextInput::make('bairro')
+                                    ->label('Bairro'),
+
+                                TextInput::make('city')
+                                    ->label('Cidade'),
+
+                                TextInput::make('state')
+                                    ->label('Estado'),
+
+                                TextInput::make('cep')
+                                    ->label('CEP'),
+                            ]),
+                    ])->columnSpan(2),
+                ]),
+
                 ])->columns([
                 'default' => 2,
                 'sm' => 1,
@@ -182,6 +193,7 @@ class UserResource extends Resource
                 '2xl' => 2
             ]);
     }
+
 
     public static function table(Table $table): Table
     {

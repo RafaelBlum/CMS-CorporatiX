@@ -28,13 +28,4 @@ class EditUser extends EditRecord
             ->success()
             ->send();
     }
-
-    protected function handleRecordEdit(array $data): Model
-    {
-        dd($data);
-        $record =  static::getModel()::create($data);
-        $record->address()->create($data['address']);
-
-        return $record;
-    }
 }
