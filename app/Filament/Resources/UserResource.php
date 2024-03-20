@@ -252,7 +252,7 @@ class UserResource extends Resource
                     DeleteAction::make(),
                     ViewAction::make(),
 
-                    Action::make('Edit status')
+                    Action::make('Alterar status')
                         ->icon('heroicon-o-pencil-square')
                         ->form([
                             Select::make('status')
@@ -279,24 +279,6 @@ class UserResource extends Resource
                             Notification::make()
                                 ->title('Alteração de status')
                                 ->body("O status do usuário " . $user->name . " foi modificado com sucesso!")
-                                ->icon('heroicon-o-users')
-                                ->color('success')
-                                ->send();
-                        }),
-
-                    Action::make('edit')
-                        ->url(route('filament.admin.auth.login'))
-                        ->openUrlInNewTab(),
-
-                    Action::make('refresh')
-                        ->label("refresh")
-                        ->icon('heroicon-o-users')
-                        ->color('warning')
-                        ->action(function (User $user) {
-                            //$wallet->refreshBalance();
-                            Notification::make()
-                                ->title("{$user->name}")
-                                ->body('teste')
                                 ->icon('heroicon-o-users')
                                 ->color('success')
                                 ->send();
