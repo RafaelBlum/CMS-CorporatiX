@@ -5,11 +5,8 @@ namespace App\Filament\Resources;
 use App\Enums\MaritalStatusEnum;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
-use App\Forms\Components\CustomPlasceHolder;
-use App\Models\Address;
+use App\Infolists\Components\StatusSwitcher;
 use App\Models\User;
-use Filament\Forms;
-use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
@@ -20,18 +17,25 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\ImageEntry;
+use Filament\Infolists\Components\RepeatableEntry;
+use Filament\Infolists\Components\Section as SectionInfo;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
+use Filament\Notifications\Notification;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use stdClass;
 
 class UserResource extends Resource
@@ -48,118 +52,110 @@ class UserResource extends Resource
 
     public static function form(Form $form): Form
     {
-
-        $id = $form->model->id;
-
         return $form
             ->schema([
 
                 Grid::make(3)->schema([
 
-                        Section::make()->schema([
-                                FileUpload::make('avatar')
-                                    ->label('')
-                                    ->disk('public')
-                                    ->directory('thumbnails')->columnSpanFull()
-                            ])
-                            ->columnSpan(1),
+                    //IMAGE AVATAR
+                    Section::make()->schema([
+                        FileUpload::make('avatar')
+                            ->label('')
+                            ->disk('public')
+                            ->directory('thumbnails')->columnSpanFull()
+                    ])->columnSpan(1),
 
-                        Section::make()->schema([
-                                Grid::make(3)->schema([
-                                    Group::make()->schema([
+                    //SECTION DATA BASE
+                    Section::make()->schema([
+                        Grid::make(3)->schema([
+                            Group::make()->schema([
 
-                                        TextInput::make('name')
-                                            ->label('Nome completo')
-                                            ->required()
-                                            ->maxLength(150),
-                                    ])->columnSpan(1),
+                                TextInput::make('name')
+                                    ->label('Nome completo')
+                                    ->required()
+                                    ->maxLength(150),
+                            ])->columnSpan(1),
 
-                                    Group::make()->schema([
-                                        TextInput::make('email')
-                                            ->label('E-mail')
-                                            ->email()
-                                            ->required()
-                                            ->maxLength(255),
+                            Group::make()->schema([
+                                TextInput::make('email')
+                                    ->label('E-mail')
+                                    ->email()
+                                    ->required()
+                                    ->maxLength(255),
 
-                                    ])->columnSpan(2),
-                                ]),
+                            ])->columnSpan(2),
+                        ]),
 
-                                Grid::make(3)->schema([
-                                    Group::make()->schema([
-                                        Select::make('marital_status')
-                                            ->label('Estado civil')
-                                            ->options(MaritalStatusEnum::class)
-                                            ->native(false),
+                        Grid::make(3)->schema([
+                            Group::make()->schema([
+                                Select::make('marital_status')
+                                    ->label('Estado civil')
+                                    ->options(MaritalStatusEnum::class)
+                                    ->native(false),
 
-                                    ])->columnSpan(1),
+                            ])->columnSpan(1),
 
-                                    Group::make()->schema([
-                                        TextInput::make('password')
-                                            ->label('Senha')
-                                            ->password()
-                                            //->required()
-                                            ->minLength(3)
-                                            ->maxLength(255),
-                                    ])->columnSpan(2),
-                                ]),
+                            Group::make()->schema([
+                                TextInput::make('password')
+                                    ->label('Senha')
+                                    ->password()
+                                    //->required()
+                                    ->minLength(3)
+                                    ->maxLength(255),
+                            ])->columnSpan(2),
+                        ]),
 
-                                Grid::make(11)->schema([
-                                    Group::make()->schema([
-                                        Toggle::make('status')
-                                            ->label('Acesso')
-                                            ->onColor('success')
-                                            ->offColor('danger')
-                                            ->inline(false),
+                        Grid::make(11)->schema([
+                            Group::make()->schema([
+                                Toggle::make('status')
+                                    ->label('Acesso')
+                                    ->onColor('success')
+                                    ->offColor('danger')
+                                    ->inline(false),
 
-                                    ])->columnSpan(1),
+                            ])->columnSpan(1),
 
-                                    Group::make()->schema([
-                                        DatePicker::make('birth')
-                                            ->label('Data de aniversário')
-                                            ->displayFormat(function () {
-                                                return 'd/m/Y';
-                                            }),
-                                    ])->columnSpan(5),
+                            Group::make()->schema([
+                                DatePicker::make('birth')
+                                    ->label('Data de aniversário')
+                                    ->displayFormat(function () {
+                                        return 'd/m/Y';
+                                    }),
+                            ])->columnSpan(5),
 
-                                    Group::make()->schema([
-                                        Select::make('role_id')
-                                            ->label('Função do usuário')
-                                            ->preload()
-                                            ->relationship('role', 'name'),
-                                    ])->columnSpan(5),
-                                ]),
+                            Group::make()->schema([
+                                Select::make('role_id')
+                                    ->label('Função do usuário')
+                                    ->preload()
+                                    ->relationship('role', 'name'),
+                            ])->columnSpan(5),
+                        ]),
 
-                            ])
-                            ->columnSpan(2),
-                    ]),
+                    ])->columnSpan(2),
+                ]),
 
-                Grid::make(3)->schema([
-                        Section::make()->schema([
-                            TextInput::make('academic_education')
-                                ->label('Educação')
-                                ->maxLength(255),
-                            TextInput::make('phone')
-                                ->label('WhatApp')
-                                ->mask('(99) 99999-9999'),
-                            TextInput::make('branch_line')
-                                ->label('Ramal')
-                                ->mask('999-999'),
-                        ])
-                        ->columnSpan(1),
+                Grid::make(8)->schema([
+                    Section::make()->schema([
+                        TextInput::make('academic_education')
+                            ->label('Educação')
+                            ->maxLength(255),
+                        TextInput::make('phone')
+                            ->label('WhatApp')
+                            ->mask('(99) 99999-9999'),
+                        TextInput::make('branch_line')
+                            ->label('Ramal')
+                            ->mask('999-999'),
+                    ])->columnSpan(2),
 
-                        Section::make()->schema([
-                            Textarea::make('bio')
-                                ->label('Sua biografia')
-                                ->rows(9)
-                                ->cols(20)
-                                ->columnSpanFull(),
-                        ])
-                        ->columnSpan(2),
-                    ]),
+                    Section::make()->schema([
+                        Textarea::make('bio')
+                            ->label('Sua biografia')
+                            ->rows(9)
+                            ->cols(20)
+                            ->columnSpanFull(),
+                    ])->columnSpan(3),
 
-                Section::make()->schema([
-                    Grid::make(3)->schema([
-
+                    Section::make()->schema([
                         Group::make()
                             ->relationship('address')
                             ->schema([
@@ -181,10 +177,13 @@ class UserResource extends Resource
                                 TextInput::make('cep')
                                     ->label('CEP'),
                             ]),
-                    ])->columnSpan(2),
+
+
+                    ])->columnSpan(3),
                 ]),
 
-                ])->columns([
+
+            ])->columns([
                 'default' => 2,
                 'sm' => 1,
                 'md' => 2,
@@ -193,7 +192,6 @@ class UserResource extends Resource
                 '2xl' => 2
             ]);
     }
-
 
     public static function table(Table $table): Table
     {
@@ -217,7 +215,7 @@ class UserResource extends Resource
                 TextColumn::make('name')
                     ->label('Nome')
                     ->description(function (User $record) {
-                        return ($record->role->name === "admin" ? 'Acesso administrativo':'acesso aplicativo');
+                        return ($record->role->name === "admin" ? 'Acesso administrativo' : 'acesso aplicativo');
                     })
                     ->searchable(),
 
@@ -243,18 +241,68 @@ class UserResource extends Resource
                     ->label('WhatApp')
                     ->searchable(),
 
-                TextColumn::make('address.street')
-                    ->label('Rua')
-                    ->searchable(),
-
-
             ])
+            ->defaultSort('id', 'asc')
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    EditAction::make(),
+                    DeleteAction::make(),
+                    ViewAction::make(),
+
+                    Action::make('Edit status')
+                        ->icon('heroicon-o-pencil-square')
+                        ->form([
+                            Select::make('status')
+                                ->label('Alterar status')
+                                ->options([
+                                    true => 'Ativo',
+                                    false => 'Desativado',
+                                ])
+                                ->default(function (User $user) {
+                                    $status = null;
+                                    if ($user->status === true) {
+                                        $status = true;
+                                    } else {
+                                        $status = false;
+                                    }
+
+                                    return $status;
+                                })
+                        ])
+                        ->action(function (User $user, array $data): void {
+                            $user->status = $data['status'];
+                            $user->save();
+
+                            Notification::make()
+                                ->title('Alteração de status')
+                                ->body("O status do usuário " . $user->name . " foi modificado com sucesso!")
+                                ->icon('heroicon-o-users')
+                                ->color('success')
+                                ->send();
+                        }),
+
+                    Action::make('edit')
+                        ->url(route('filament.admin.auth.login'))
+                        ->openUrlInNewTab(),
+
+                    Action::make('refresh')
+                        ->label("refresh")
+                        ->icon('heroicon-o-users')
+                        ->color('warning')
+                        ->action(function (User $user) {
+                            //$wallet->refreshBalance();
+                            Notification::make()
+                                ->title("{$user->name}")
+                                ->body('teste')
+                                ->icon('heroicon-o-users')
+                                ->color('success')
+                                ->send();
+                        }),
+                ])->tooltip("Menu")
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -270,11 +318,30 @@ class UserResource extends Resource
     public static function infolist(Infolist $infolist): Infolist
     {
         return $infolist->schema([
-            \Filament\Infolists\Components\Section::make([
-                TextEntry::make('name')
-                    ->size('lg')->weight('bold')->hiddenLabel(),
+            \Filament\Infolists\Components\Grid::make(6)
+                ->schema([
+                    SectionInfo::make()
+                        ->schema([
+                            ImageEntry::make('avatar')
+                                ->width(100)
+                                ->height(50)
+                                ->size(40)
+                                ->view('filament/user/user-avatar'),
+                        ])
+                        ->columnSpan(2),
 
-            ]),
+                    SectionInfo::make()
+                        ->schema([
+                            TextEntry::make('user')
+                                ->size('lg')
+                                ->weight('bold')
+                                ->hiddenLabel()
+                                ->view('filament/user/user-data', ['user' => $infolist->record]),
+                        ])
+                        ->columnSpan(4),
+                ]),
+
+
         ])->columns(3);
     }
 

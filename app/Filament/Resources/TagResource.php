@@ -74,7 +74,9 @@ class TagResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\EditAction::make(),
+                ])->tooltip("Menu")
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

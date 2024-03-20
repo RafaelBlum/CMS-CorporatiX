@@ -28,6 +28,9 @@ use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -273,8 +276,11 @@ class ArticleResource extends Resource
                     ->multiple(),
             ])
             ->actions([
-
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    EditAction::make(),
+                    DeleteAction::make(),
+                    ViewAction::make(),
+                ])->tooltip("Menu")
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -300,11 +306,11 @@ class ArticleResource extends Resource
                         ->hiddenLabel(),
 
                     ImageEntry::make('featured_image_url')
-                        ->view('filament/article-image'),
+                        ->view('filament/article/article-image'),
 
                     TextEntry::make('content')
                         ->hiddenLabel()->alignJustify()
-                        ->view('filament/article-content')
+                        ->view('filament/article/article-content')
                         ->html(),
 
                 ])->columnSpan(2),

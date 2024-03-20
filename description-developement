@@ -9,23 +9,15 @@ Pendencias::
 [  ] -
 [  ] -
 
-//
-//                            dd("TEST DD:",
-////                                $form->getState(),
-////                                self::$model,
-//                                $form
-////                                $form->model,
-////                                $form->model->address
-//                            ),
 
 Comandos de configurações
 - php artisan about
+- duplo shift    => Abre busca
 
-Filament:: app/Filament/Resources
-[ AdminPanel            ] -     app/Providers/Filament/AdminPanelProvider.php
-[ Page settings         ] -     app/Filament/Pages/Settings.php | resources/views/filament/pages/settings.blade.php
-[ Custom PlaceHolder    ] -     app/Forms/Components/CustomPlasceHolder.php | resources/views/forms/components/custom-plasce-holder.blade.php
-[ Component livewire    ] -     app/Livewire/Article/Grid.php | resources/views/livewire/article/grid.blade.php
+lINK'S
+[ Create action     ]       - https://filamentphp.com/docs/3.x/actions/prebuilt-actions/create
+[ Advanced actions  ]       - https://filamentphp.com/docs/3.x/actions/advanced
+[ forms Actions     ]       - https://filamentphp.com/docs/3.x/forms/actions
 [  ] -
 [  ] -
 [  ] -
@@ -42,29 +34,6 @@ Filament:: app/Filament/Resources
 [  ] -
 [  ] -
 [  ] -
-[  ] -
-[  ] -
-[  ] -
-
-
-Annotations
-
-Resources views:
-[ app ] -   Paginas para incluir no layout da home da intranet. Ajustar "rotas" e "Controllers".
-[ auth ] -  Ajustar page reset, verify email, forgot pass, confirm pass. Page register neste caso não terá, pois é um sistema fechado e só ADMIN registra algu, usuário.
-[ components, layouts, profile ] - Precisa ser verificado a necessidade ou alterações de logica e regra de negocio.
-[  ] -
-[  ] -
-[  ] -
-[  ] -
-[  ] -
-[  ] -
-[  ] -
-[  ] -
-
-
-Dicas:
-[ dehydrated(false) ] - função que não enviar para back a propriedade.
 
 
   ⇂ make:cast
@@ -145,134 +114,3 @@ No Laravel,
         * $fillable serve como uma “lista branca” de atributos que deveriam ser atribuíveis em massa.
     [] $guarded O atributo é usado para especificar os campos que não devem ser atribuídos em massa.
         * $guarded atua exatamente o oposto disso como uma “lista negra” de atributos que não deveriam ser atribuíveis em massa.
-
-
-## Collapsible Sidebar with Tailwind CSS & Alpine.js
-<div x-data="{ sidebarOpen: true }" class="flex overflow-x-hidden h-screen">
-  <aside class="flex-shrink-0 w-64 flex flex-col border-r transition-all duration-300" :class="{ '-ml-64': !sidebarOpen }">
-    <div class="h-64 bg-gray-900"></div>
-    <nav class="flex-1 flex flex-col bg-white">
-      <a href="#" class="p-2">Nav Link 1</a>
-      <a href="#" class="p-2">Nav Link 2</a>
-      <a href="#" class="p-2">Nav Link 3</a>
-    </nav>
-  </aside>
-  <div class="flex-1">
-    <header class="flex items-center p-4 text-semibold text-gray-100 bg-gray-900">
-      <button class="p-1 mr-4" @click="sidebarOpen = !sidebarOpen">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
-      Header
-    </header>
-    <main class="p-4">
-      Main Content
-    </main>
-  </div>
-</div>
-
-
-### dicas (https://www.youtube.com/watch?v=TDNlK_BWaL4&ab_channel=TioJobs)
-Docker, sail, curl, redis, mailpit => Estaudar conceitos
-
-
-#1 Create project laravel
-access panel administration [User, type => admin]   ================ >
-access panel app            [User, type => app]     ================ >  [Costumer, user_id]
-        - Usuários tem seus clientes e seu tipo de acesso e os clientes carregam o id do usuário que atende.
-        - composer create-project laravel/laravel name-project
-
-#2 Install Filament basic
-        - composer require filament/filament:"^3.2" -W
-        - php artisan filament:install --panels
-#3 create users via seeders
-        - now()->subYears(25)->format('Y-m-d'), fake()->safeEmail(), '(51) ' . fake()->cellphone
-
-#4 fillable
-        - Podemos evitar para fins de teste os fillable´s. COMO?
-        - Em AppServicePorviders => boot method
-            Model::unguard();
-
-#5 implement method canAccessPanel for Filament
-
-#6 Add property access panel User
-        - migrations/users_table
-            $table->string('panel')->default('app');
-
-#7 Create class Enum Panel type in App/Enum
-        - create class enum
-        - add $casts = [] property type PanelTypeEnum in model User
-                'panel' => PanelTypeEnum::class,
-        - add panel type in user factory ADMIN
-                'panel' => PanelTypeEnum::ADMIN,
-
-#8 add logica in canAccessPanel
-
-    public function canAccessPanel(Panel $panel): bool
-    {
-        if($this->panel === PanelTypeEnum::ADMIN){
-            return true;
-        }
-
-        if($this->panel === PanelTypeEnum::APP){
-            return true;
-        }
-
-        return false;
-    }
-
-#9 Add table Customer { 37:28 min live}
-
-#10 unsignedInteger
-    Recebe valores positivos somente.
-        $table->unsignerInteger('views');
-
-
-#11 create Panel app in Filament {1:04:00}
-        - php artisan make:filament-panel app
-        -precisa definir no painel
-            ->login()
-
-#12 create resources Filament User e Costumer
-
-
-
-# Dicas de produtividade PhpStorm
-#1 - duplo shift    => Abre busca
-
-
-
-
-/*
-|--------------------------------------------------------------------------
-| Routes      filament admin                        name route
-|--------------------------------------------------------------------------
-| GET|HEAD   admin ............................... filament.admin.pages.dashboard               › Filament\Pages ›  Dashboard
-| GET|HEAD   admin/articles ...................... filament.admin.resources.articles.index      ›                   App\Filament\Resources\ArticleResource\Pages\ListArticles
-| GET|HEAD   admin/articles/create ............... filament.admin.resources.articles.create     ›                   App\Filament\Resources\ArticleResource\Pages\CreateArticle
-| GET|HEAD   admin/articles/{record} ............. filament.admin.resources.articles.view       ›                   App\Filament\Resources\ArticleResource\Pages\ViewArticle
-| GET|HEAD   admin/articles/{record}/edit ........ filament.admin.resources.articles.edit       ›                   App\Filament\Resources\ArticleResource\Pages\EditArticle
-| GET|HEAD   admin/categories .................... filament.admin.resources.categories.index    ›                   App\Filament\Resources\CategoryResource\Pages\ListCategories
-| GET|HEAD   admin/categories/create ............. filament.admin.resources.categories.create   ›                   App\Filament\Resources\CategoryResource\Pages\CreateCategory
-| GET|HEAD   admin/categories/{record} ........... filament.admin.resources.categories.view     ›                   App\Filament\Resources\CategoryResource\Pages\ViewCategory
-| GET|HEAD   admin/categories/{record}/edit ...... filament.admin.resources.categories.edit     ›                   App\Filament\Resources\CategoryResource\Pages\EditCategory
-| GET|HEAD   admin/login ......................... filament.admin.auth.login › Filament\Pages   ›                   Login
-| POST       admin/logout ........................ filament.admin.auth.logout › Filament\Http   ›                   LogoutController
-| GET|HEAD   admin/tags .......................... filament.admin.resources.tags.index          ›                   App\Filament\Resources\TagResource\Pages\ListTags
-| GET|HEAD   admin/tags/create ................... filament.admin.resources.tags.create         ›                   App\Filament\Resources\TagResource\Pages\CreateTag
-| GET|HEAD   admin/tags/{record}/edit ............ filament.admin.resources.tags.edit           ›                   App\Filament\Resources\TagResource\Pages\EditTag
-| GET|HEAD   admin/users ......................... filament.admin.resources.users.index         ›                   App\Filament\Resources\UserResource\Pages\ListUsers
-| GET|HEAD   admin/users/create .................. filament.admin.resources.users.create        ›                   App\Filament\Resources\UserResource\Pages\CreateUser
-| GET|HEAD   admin/users/{record} ................ filament.admin.resources.users.view          ›                   App\Filament\Resources\UserResource\Pages\ViewUser
-| GET|HEAD   admin/users/{record}/edit ........... filament.admin.resources.users.edit          ›                   App\Filament\Resources\UserResource\Pages\EditUser
-|
-php artisan route:list --path=api
-*/
-
-
-
-
-
-
-

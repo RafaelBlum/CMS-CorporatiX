@@ -13,6 +13,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
@@ -85,7 +86,9 @@ class RoleResource extends Resource
         //
     ])
         ->actions([
-            EditAction::make(),
+            ActionGroup::make([
+                EditAction::make(),
+            ])->tooltip("Menu")
         ])
         ->bulkActions([
             BulkActionGroup::make([
