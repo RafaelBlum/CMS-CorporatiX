@@ -13,6 +13,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
+use Filament\Support\View\Components\Modal;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteBulkAction;
@@ -76,6 +77,8 @@ class RoleResource extends Resource
                 TextColumn::make('slug')
                     ->searchable(),
 
+
+
                 TextColumn::make('description')
                     ->searchable(),
 
@@ -112,5 +115,10 @@ class RoleResource extends Resource
             'create' => Pages\CreateRole::route('/create'),
             'edit' => Pages\EditRole::route('/{record}/edit'),
         ];
+    }
+
+    public static function canAccess(): bool
+    {
+        return auth()->user()->status;
     }
 }

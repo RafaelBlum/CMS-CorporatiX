@@ -30,16 +30,18 @@ sendo atendidos.
 
 
 ### :label: Os `requisitos funcionais (RF)`
-- [RF001] :white_check_mark:    O Sistema deverá ter um `landing page institucional` que será administravel.
+- [RF001]          APP          O Sistema deverá ter um `landing page institucional` que será administravel.
+
+
+
 - [RF007]                       O Sistema deve ter `configurações [unico e não deletavel]` para administração de dados da página institucional e admin.
-- [RF002] :white_check_mark:    O Sistema terá uma area restrita para os colaboradores e admins (`intranet/App`).
-- [RF003] :white_check_mark:    O Sistema terá uma `dashboard` para somente administradores com `menu das funcionalidades`.
+- [RF002]                       O Sistema terá uma area restrita para os colaboradores e admins (`intranet/App`).
+- [RF003]                       O Sistema terá uma `dashboard` para somente administradores com `menu das funcionalidades`.
 - [RF003]                       O sistema terá `controle de acesso` a funcionalidades a partir de suas (ACL) permissões, seja usuário ou admin.
-                                    - verificar metodo de acesso user camPanel e propriedade panel do user.
 - [RF004]                       O Sistema deve autenticar o `usuários` e `administradores` atravez de `atributo que os definem` [email, passsword, status].
 - [RF005]                       O `usuários` poderá acessar somente a area de intranet/App e `administradores` teram acesso a area App e dashboard.
 - [RF006]                       O sistema deve ter cadastro de novos usuários somente por administradores, com seu `perfil de acesso` e um `e-mail único`.
-- [RF007] :white_check_mark:    O usuário deve ser notificado da sua aprovação via `notificado de e-mail`.
+- [RF007]                       O usuário deve ser notificado da sua aprovação via `notificado de e-mail`.
 - [RF005]                       O Sistema deve ter estatiscas do trávego de navegação na dashboard.
                                     - Quem pode administrar são Administradores com permissão `dasboard`
                                     - Dados que serão administraveis na área APP [nome site, favicon, ].
@@ -53,7 +55,7 @@ sendo atendidos.
 
 - [RF006]                       O Sistema deve ter perguntas frequentes `CommonQuestions`, que serão administradas.
 
-- [RF007] :white_check_mark:    O Sistema deve ter administração de `usuários CRUD`.
+- [RF007]                       O Sistema deve ter administração de `usuários CRUD`.
                                     - Listagem                              OK
                                     - Criar                                 OK
                                     - Editar                                OK
@@ -61,13 +63,13 @@ sendo atendidos.
                                     - Profile  [REFERÊNCIA *4]                                         
                                     - No listar não pode estar User logado
                                     
-- [RF008] :white_check_mark:    O Sistema deve ter administração de `categorias  CRUD` e relações.
-- [RF009] :white_check_mark:    O Sistema deve ter administração dos `artigos  CRUD` e relações.
-- [RF009] :white_check_mark:    O Sistema deve ter administração dos `tags  CRUD` e relações.
+- [RF008]                       O Sistema deve ter administração de `categorias  CRUD` e relações.
+- [RF009]                       O Sistema deve ter administração dos `artigos  CRUD` e relações.
+- [RF009]                       O Sistema deve ter administração dos `tags  CRUD` e relações.
                                     - Clusterizar: Os 3 resources em uma pagina [REFERÊNCIA *5-6]
 
-- [RF010] :white_check_mark:    O Sistema deve permitir a pesquisa de usuários, categorias, tags e artigos.
-- [RF011] :white_check_mark:    O Sistema deve ter paginação nas listagens administrativa.
+- [RF010]                       O Sistema deve permitir a pesquisa de usuários, categorias, tags e artigos.
+- [RF011]                       O Sistema deve ter paginação nas listagens administrativa.
 - [RF011]                       O Sistema deve ter paginação nas listagens app.
 
 - [RF018]                       O Sistema deve permitir mudar o status de acesso de um usuário.
@@ -109,17 +111,17 @@ sendo atendidos.
 
 
 ### :label: `requisitos não funcionais (RNF)`
-- [RNF001] :white_check_mark: O sistema deve ser implementado em Php.
-- [RNF002] :white_check_mark: O sistema deve utilizar framework laravel.
-- [RNF003] :white_check_mark: O sistema deve implementado em componentes livewire.
-- [RNF004] :white_check_mark: O sistema deve implementar o Filament na área administrativa.
-- [RNF004] :white_check_mark: Para alguns dos teste usar o Debugbar.
-- [RNF005] :white_check_mark: O sistema deve utiilizar o banco de dados (`phpMyAdmin`) MySql.
-- [RNF006] :white_check_mark: O sistema será implementado na arquitetura MVC.
-- [RNF007] :white_check_mark: O sistema deve utilizar TailWindCss.
-- [RNF008] :white_check_mark: O sistema deve ser implementado utilizando componentes para melhor agilidade de desenvolvimento.
-- [RNF009] :white_check_mark: O site deve ser 100% responsivo.
-- [RNF010] :white_check_mark: O site deve ter segurança contra ataques.
+- [RNF001]                       O sistema deve ser implementado em Php.
+- [RNF002]                       O sistema deve utilizar framework laravel.
+- [RNF003]                       O sistema deve implementado em componentes livewire.
+- [RNF004]                       O sistema deve implementar o Filament na área administrativa.
+- [RNF004]                       Para alguns dos teste usar o Debugbar.
+- [RNF005]                       O sistema deve utiilizar o banco de dados (`phpMyAdmin`) MySql.
+- [RNF006]                       O sistema será implementado na arquitetura MVC.
+- [RNF007]                       O sistema deve utilizar TailWindCss.
+- [RNF008]                       O sistema deve ser implementado utilizando componentes para melhor agilidade de desenvolvimento.
+- [RNF009]                       O site deve ser 100% responsivo.
+- [RNF010]                       O site deve ter segurança contra ataques.
 
 
 ### :label: Requisitos seguidos

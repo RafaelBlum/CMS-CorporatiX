@@ -18,9 +18,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Infolists\Components\ImageEntry;
-use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\Section as SectionInfo;
-use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Components\ViewEntry;
 use Filament\Infolists\Infolist;
 use Filament\Notifications\Notification;
 use Filament\Resources\Components\Tab;
@@ -33,10 +32,8 @@ use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use stdClass;
 
 class UserResource extends Resource
 {
@@ -182,7 +179,6 @@ class UserResource extends Resource
                     ])->columnSpan(3),
                 ]),
 
-
             ])->columns([
                 'default' => 2,
                 'sm' => 1,
@@ -197,16 +193,6 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('No')->state(
-                    static function (HasTable $livewire, stdClass $rowLoop): string {
-                        return (string)(
-                            $rowLoop->iteration +
-                            ($livewire->getTableRecordsPerPage() * (
-                                    $livewire->getTablePage() - 1
-                                ))
-                        );
-                    }
-                ),
                 ImageColumn::make('avatar')
                     ->circular()
                     ->defaultImageUrl(url('storage/app/public/thumbnails'))
@@ -216,8 +202,7 @@ class UserResource extends Resource
                     ->label('Nome')
                     ->description(function (User $record) {
                         return ($record->role->name === "admin" ? 'Acesso administrativo' : 'acesso aplicativo');
-                    })
-                    ->searchable(),
+                    })->searchable(),
 
                 TextColumn::make('email')
                     ->label('E-mail')
@@ -240,7 +225,6 @@ class UserResource extends Resource
                 TextColumn::make('phone')
                     ->label('WhatApp')
                     ->searchable(),
-
             ])
             ->defaultSort('id', 'asc')
             ->filters([
@@ -293,6 +277,14 @@ class UserResource extends Resource
             ]);
     }
 
+    /**
+     * Metodo query que retorna todos usuários da Table view
+     *
+     */
+//    public static function getEloquentQuery(): Builder
+//    {
+//        return static::getModel()::query()->where('id', '!=', auth()->id());
+//    }
 
     /**
      * Page profile user - InfoList
@@ -314,9 +306,7 @@ class UserResource extends Resource
 
                     SectionInfo::make()
                         ->schema([
-                            TextEntry::make('user')
-                                ->size('lg')
-                                ->weight('bold')
+                            ViewEntry::make('user')
                                 ->hiddenLabel()
                                 ->view('filament/user/user-data', ['user' => $infolist->record]),
                         ])

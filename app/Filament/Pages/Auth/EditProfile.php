@@ -6,7 +6,9 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\ViewEntry;
 use Filament\Pages\Auth\EditProfile as BaseEditProfile;
+use Filament\Tables\Columns\TextColumn;
 
 class EditProfile extends BaseEditProfile
 {
@@ -39,6 +41,12 @@ class EditProfile extends BaseEditProfile
                                 $this->getPasswordConfirmationFormComponent(),
                             ])
                             ->columnSpan(2),
+
+                        Section::make('user')
+                            ->hiddenLabel()
+                            ->view('filament/user/user-data', ['user' => $form->model]),
+
+
                     ]),
             ])->statePath('data')->columns([
                 'default' => 2,
