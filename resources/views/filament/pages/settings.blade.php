@@ -44,7 +44,7 @@
 
     {{ $this->form }}
 
-    <x-filament::button wire:click="submit" type="submit" form="submit">
+    <x-filament::button wire:click="submit" type="submit" form="submit" outlined>
         Atualizar dados
     </x-filament::button>
 

@@ -4,7 +4,9 @@ namespace App\Filament\Pages\Auth;
 
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Infolists\Components\ViewEntry;
 use Filament\Pages\Auth\EditProfile as BaseEditProfile;
@@ -24,6 +26,7 @@ class EditProfile extends BaseEditProfile
                 Grid::make(3)
                     ->schema([
 
+                        //dd(static::getId(), static::getName(), $form->model),
                         Section::make()
                             ->schema([
                                 FileUpload::make('avatar')
@@ -41,6 +44,32 @@ class EditProfile extends BaseEditProfile
                                 $this->getPasswordConfirmationFormComponent(),
                             ])
                             ->columnSpan(2),
+
+                        Section::make()->schema([
+                            Group::make()
+                                ->relationship('address')
+                                ->schema([
+                                    TextInput::make('street')
+                                        ->label('Rua'),
+
+                                    TextInput::make('number')
+                                        ->label('Numero'),
+
+                                    TextInput::make('bairro')
+                                        ->label('Bairro'),
+
+                                    TextInput::make('city')
+                                        ->label('Cidade'),
+
+                                    TextInput::make('state')
+                                        ->label('Estado'),
+
+                                    TextInput::make('cep')
+                                        ->label('CEP'),
+                                ]),
+
+
+                        ])->columnSpan(3),
 
                         Section::make('user')
                             ->hiddenLabel()

@@ -3,8 +3,7 @@ Pendencias::
 [  ] - Ajustar view Home App, condição caso não tenha na collection articles. @if @endif
 [  ] - Seeder User add date now() inicial
 [  ] - Ajustar view Home App autor last_access caso não tenha. @if @endif
-[  ] - Ajustar RAMAL: ERROR: The branch line field must be a number.
-[  ] -
+[  ] - ARTICLE:: Sem campos de data de publicação
 [  ] -
 [  ] -
 [  ] -
