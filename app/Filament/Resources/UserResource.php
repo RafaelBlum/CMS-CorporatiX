@@ -281,10 +281,10 @@ class UserResource extends Resource
      * Metodo query que retorna todos usuários da Table view
      *
      */
-//    public static function getEloquentQuery(): Builder
-//    {
-//        return static::getModel()::query()->where('id', '!=', auth()->id());
-//    }
+    public static function getEloquentQuery(): Builder
+    {
+        return static::getModel()::query()->where('id', '!=', auth()->id());
+    }
 
     /**
      * Page profile user - InfoList
