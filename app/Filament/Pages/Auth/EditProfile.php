@@ -2,15 +2,24 @@
 
 namespace App\Filament\Pages\Auth;
 
+use App\Forms\Components\HeaderProfileUser;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Tabs;
+use Filament\Forms\Components\Tabs\Tab;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Infolists\Components\ViewEntry;
 use Filament\Pages\Auth\EditProfile as BaseEditProfile;
 use Filament\Tables\Columns\TextColumn;
+use App\Enums\MaritalStatusEnum;
 
 class EditProfile extends BaseEditProfile
 {
@@ -26,7 +35,6 @@ class EditProfile extends BaseEditProfile
                 Grid::make(3)
                     ->schema([
 
-                        //dd(static::getId(), static::getName(), $form->model),
                         Section::make()
                             ->schema([
                                 FileUpload::make('avatar')
@@ -38,43 +46,152 @@ class EditProfile extends BaseEditProfile
 
                         Section::make()
                             ->schema([
-                                $this->getNameFormComponent(),
-                                $this->getEmailFormComponent(),
-                                $this->getPasswordFormComponent(),
-                                $this->getPasswordConfirmationFormComponent(),
+
+                                HeaderProfileUser::make($form->model)
+                                    ->columnSpanFull(),
+
+                                Grid::make(4)->schema([
+                                    Group::make()->schema([
+                                        $this->getNameFormComponent(),
+                                    ])->columnSpan(2),
+
+                                    Group::make()->schema([
+                                        $this->getEmailFormComponent(),
+                                    ])->columnSpan(2),
+                                ])->columnSpanFull(),
+
+                                Grid::make(4)->schema([
+                                    Group::make()->schema([
+                                        $this->getPasswordFormComponent(),
+                                    ])->columnSpan(function (Get $get, Set $set) {
+                                        if( $get('password') == null){
+                                            return 4;
+                                        }else{
+                                            return 2;
+                                        }
+                                    }),
+
+                                    Group::make()->schema([
+                                        $this->getPasswordConfirmationFormComponent(),
+                                    ])->columnSpan(2),
+                                ])->columnSpanFull(),
+
+
+
+
                             ])
                             ->columnSpan(2),
 
-                        Section::make()->schema([
-                            Group::make()
-                                ->relationship('address')
+                        Tabs::make('informations')->tabs([
+                            Tab::make('Minhas informações')->icon('heroicon-m-identification')
                                 ->schema([
-                                    TextInput::make('street')
-                                        ->label('Rua'),
 
-                                    TextInput::make('number')
-                                        ->label('Numero'),
 
-                                    TextInput::make('bairro')
-                                        ->label('Bairro'),
 
-                                    TextInput::make('city')
-                                        ->label('Cidade'),
 
-                                    TextInput::make('state')
-                                        ->label('Estado'),
 
-                                    TextInput::make('cep')
-                                        ->label('CEP'),
+                                    Grid::make(4)->schema([
+                                        Group::make()->schema([
+
+                                            TextInput::make('academic_education')
+                                                ->label('Educação')
+                                                ->maxLength(255),
+
+
+                                            Grid::make(4)->schema([
+                                                Group::make()->schema([
+                                                    TextInput::make('phone')
+                                                        ->label('')
+                                                        ->prefixIcon('heroicon-m-phone-arrow-down-left')
+                                                        ->suffixIconColor('success')
+                                                        ->mask('(99) 99999-9999'),
+                                                ])->columnSpan(2),
+
+                                                Group::make()->schema([
+                                                    TextInput::make('branch_line')
+                                                        ->label('')
+                                                        ->prefix('Ramal')
+                                                        ->mask('999-999'),
+                                                ])->columnSpan(2),
+                                            ])->columnSpanFull(),
+
+
+                                            Grid::make(4)->schema([
+                                                Group::make()->schema([
+                                                    Select::make('marital_status')
+                                                        ->label('Estado civil')
+                                                        ->options(MaritalStatusEnum::class)
+                                                        ->native(false),
+                                                ])->columnSpan(2),
+
+                                                Group::make()->schema([
+                                                    DatePicker::make('birth')
+                                                        ->label('Data de aniversário')
+                                                        ->displayFormat(function () {
+                                                            return 'd/m/Y';
+                                                        }),
+                                                ])->columnSpan(2),
+                                            ])->columnSpanFull(),
+
+
+
+
+
+                                        ])->columnSpan(2),
+
+                                        Group::make()->schema([
+
+                                                Textarea::make('bio')
+                                                    ->label('Sua biografia')
+                                                    ->rows(9)
+                                                    ->cols(20)
+                                                    ->columnSpanFull(),
+
+                                        ])->columnSpan(2),
+                                    ])->columnSpanFull(),
+
+                                ])->columns(3),
+
+                            Tab::make('Endereço')->icon('heroicon-m-home-modern')
+                                ->schema([
+                                    Section::make()->schema([
+                                        Group::make()
+                                            ->relationship('address')
+                                            ->schema([
+                                                TextInput::make('street')
+                                                    ->label('Rua'),
+
+                                                TextInput::make('number')
+                                                    ->label('Numero'),
+
+                                                TextInput::make('bairro')
+                                                    ->label('Bairro'),
+
+                                                TextInput::make('city')
+                                                    ->label('Cidade'),
+
+                                                TextInput::make('state')
+                                                    ->label('Estado'),
+
+                                                TextInput::make('cep')
+                                                    ->label('CEP'),
+                                            ]),
+
+
+                                    ])->columnSpan(3),
                                 ]),
 
+                             Tab::make('Permissões')->icon('heroicon-m-home-modern')
+                                 ->schema([
 
-                        ])->columnSpan(3),
+                                 ]),
 
-                        Section::make('user')
-                            ->hiddenLabel()
-                            ->view('filament/user/user-data', ['user' => $form->model]),
+                            Tab::make('Meus artigos')->icon('heroicon-m-home-modern')
+                                ->schema([
 
+                                ]),
+
+                        ])->columnSpanFull()->activeTab(1)->persistTabInQueryString(),
 
                     ]),
             ])->statePath('data')->columns([

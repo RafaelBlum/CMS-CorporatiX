@@ -156,21 +156,25 @@ class ArticleResource extends Resource
                                         ->live()
                                         ->required(),
 
-                                ])->columnSpan(function (Get $get) {
-                                                    if($get('status') == 'published' || $get('status') == 'scheduled'){
+                                ])->columnSpan(function (Get $get, Set $set) {
+                                                        dd($get, $set);
+                                                    if($get('status') == 'published_at' || $get('status') == 'scheduled_for'){
+                                                        dd(($get('status') == 'published_at' || $get('status') == 'scheduled_for') ? 'aqui':'não');
                                                         return 2;
                                                     }else{
                                                         return 4;
                                                     }
+                                                })->dehydrateStateUsing(function (Get $get, ?string $state) {
+                                                        dd('test');
                                                 }),
 
                                 Group::make()->schema([
-                                    DatePicker::make('published_at')->hidden(fn (Get $get) => $get('status') !== 'published')
+                                    DatePicker::make('published_at')->hidden(fn (Get $get) => $get('status') !== 'published_at')
                                         ->displayFormat(function () {
                                             return 'd/m/Y';
                                         })->columnSpanFull(),
 
-                                    DatePicker::make('scheduled_for')->hidden(fn (Get $get) => $get('status') !== 'scheduled')
+                                    DatePicker::make('scheduled_for')->hidden(fn (Get $get) => $get('status') !== 'scheduled_for')
                                         ->displayFormat(function () {
                                             return 'd/m/Y';
                                         }),
