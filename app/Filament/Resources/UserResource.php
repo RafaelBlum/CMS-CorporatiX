@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Enums\MaritalStatusEnum;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
+use App\Forms\Components\HeaderProfileUser;
 use App\Infolists\Components\StatusSwitcher;
 use App\Models\User;
 use Filament\Forms\Components\DatePicker;
@@ -65,6 +66,9 @@ class UserResource extends Resource
                     //SECTION DATA BASE
                     Section::make()->schema([
                         Grid::make(3)->schema([
+                            HeaderProfileUser::make($form->model)
+                                ->columnSpanFull(),
+
                             Group::make()->schema([
 
                                 TextInput::make('name')
