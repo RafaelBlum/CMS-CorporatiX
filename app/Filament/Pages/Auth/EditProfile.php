@@ -158,23 +158,52 @@ class EditProfile extends BaseEditProfile
                                         Group::make()
                                             ->relationship('address')
                                             ->schema([
-                                                TextInput::make('street')
-                                                    ->label('Rua'),
 
-                                                TextInput::make('number')
-                                                    ->label('Numero'),
+                                                Grid::make(4)->schema([
+                                                    Group::make()->schema([
+                                                        TextInput::make('street')
+                                                            ->label('Rua'),
+                                                    ])->columnSpan(3),
 
-                                                TextInput::make('bairro')
-                                                    ->label('Bairro'),
+                                                    Group::make()->schema([
+                                                        TextInput::make('number')
+                                                            ->label('Numero'),
+                                                    ])->columnSpan(1),
+                                                ])->columnSpanFull(),
 
-                                                TextInput::make('city')
-                                                    ->label('Cidade'),
 
-                                                TextInput::make('state')
-                                                    ->label('Estado'),
+                                                Grid::make(8)->schema([
+                                                    Group::make()->schema([
+                                                        TextInput::make('bairro')
+                                                            ->label('Bairro'),
+                                                    ])->columnSpan(2),
 
-                                                TextInput::make('cep')
-                                                    ->label('CEP'),
+                                                    Group::make()->schema([
+                                                        TextInput::make('city')
+                                                            ->label('Cidade'),
+                                                    ])->columnSpan(2),
+
+                                                    Group::make()->schema([
+                                                        TextInput::make('state')
+                                                            ->label('Estado'),
+                                                    ])->columnSpan(2),
+
+                                                    Group::make()->schema([
+                                                        TextInput::make('cep')
+                                                            ->label('CEP'),
+                                                    ])->columnSpan(2),
+
+                                                ])->columnSpanFull(),
+
+
+
+
+
+
+
+
+
+
                                             ]),
 
 

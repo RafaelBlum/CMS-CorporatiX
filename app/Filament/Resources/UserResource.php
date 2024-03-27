@@ -156,23 +156,42 @@ class UserResource extends Resource
                         Group::make()
                             ->relationship('address')
                             ->schema([
-                                TextInput::make('street')
-                                    ->label('Rua'),
 
-                                TextInput::make('number')
-                                    ->label('Numero'),
+                                Grid::make(4)->schema([
+                                    Group::make()->schema([
+                                        TextInput::make('street')
+                                            ->label('Rua'),
+                                    ])->columnSpan(3),
 
-                                TextInput::make('bairro')
-                                    ->label('Bairro'),
+                                    Group::make()->schema([
+                                        TextInput::make('number')
+                                            ->label('Numero'),
+                                    ])->columnSpan(1),
+                                ])->columnSpanFull(),
 
-                                TextInput::make('city')
-                                    ->label('Cidade'),
+                                Grid::make(4)->schema([
+                                    Group::make()->schema([
+                                        TextInput::make('bairro')
+                                            ->label('Bairro'),
+                                    ])->columnSpan(2),
 
-                                TextInput::make('state')
-                                    ->label('Estado'),
+                                    Group::make()->schema([
+                                        TextInput::make('city')
+                                            ->label('Cidade'),
+                                    ])->columnSpan(2),
+                                ])->columnSpanFull(),
 
-                                TextInput::make('cep')
-                                    ->label('CEP'),
+                                Grid::make(4)->schema([
+                                    Group::make()->schema([
+                                        TextInput::make('state')
+                                            ->label('Estado'),
+                                    ])->columnSpan(2),
+
+                                    Group::make()->schema([
+                                        TextInput::make('cep')
+                                            ->label('CEP'),
+                                    ])->columnSpan(2),
+                                ])->columnSpanFull(),
                             ]),
 
 
